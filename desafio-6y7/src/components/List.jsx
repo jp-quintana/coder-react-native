@@ -14,6 +14,7 @@ const List = ({ items, handleSelect }) => {
         data={items}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
+        showsVerticalScrollIndicator={false}
       />
     </View>
   );
@@ -24,7 +25,5 @@ export default List;
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    paddingTop: 20,
-    paddingHorizontal: 20,
   },
 });

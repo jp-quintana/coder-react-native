@@ -6,13 +6,6 @@ import Input from '../components/Input';
 import List from '../components/List';
 import TaskModal from '../components/TaskModal';
 
-// const tasks = [
-//   { id: 1, name: 'A' },
-//   { id: 2, name: 'B' },
-//   { id: 3, name: 'C' },
-//   { id: 4, name: 'D' },
-// ];
-
 const MainScreen = () => {
   const [tasks, setTasks] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);

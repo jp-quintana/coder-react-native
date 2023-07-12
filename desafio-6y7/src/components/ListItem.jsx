@@ -1,15 +1,17 @@
 import { StyleSheet, Text, Pressable } from 'react-native';
 import React from 'react';
 
+import { colors } from 'helpers/colors';
+
 const ListItem = ({ item, handleSelect }) => {
-  const containerStyle = [
-    styles.container,
-    { backgroundColor: item.isCompleted ? 'green' : 'red' },
-  ];
+  const containerStyle = [styles.container];
 
   return (
-    <Pressable onPress={() => handleSelect(item)} style={containerStyle}>
-      <Text style={styles.text}>{item.name}</Text>
+    <Pressable
+      onPress={handleSelect ? () => handleSelect(item) : undefined}
+      style={containerStyle}
+    >
+      <Text style={styles.text}>{item.title}</Text>
     </Pressable>
   );
 };
@@ -21,6 +23,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderRadius: 10,
     padding: 10,
+    backgroundColor: colors.mauve,
   },
   text: {
     color: 'white',
