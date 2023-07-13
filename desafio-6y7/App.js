@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 import { useState, useEffect } from 'react';
+import { useFonts } from 'expo-font';
 
 import categories from 'data/categories.json';
 import products from 'data/products.json';
@@ -9,7 +10,11 @@ import Header from './src/components/Header';
 import Categories from './src/screens/Categories';
 import Products from './src/screens/Products';
 
+import { fontVariants } from 'helpers/fonts';
+
 export default function App() {
+  const [fontsLoaded] = useFonts(fontVariants);
+
   const [currentScreen, setCurrentScreen] = useState('categories');
   const [selectedProducts, setSelectedProducts] = useState(null);
 
@@ -24,6 +29,10 @@ export default function App() {
     setCurrentScreen('categories');
     setSelectedProducts(null);
   };
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   return (
     <View style={styles.container}>

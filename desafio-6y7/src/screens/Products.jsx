@@ -29,7 +29,11 @@ const Products = ({ selectedProducts, handleBack }) => {
         handleClear={() => setUserInput('')}
         handleBack={handleBack}
       />
-      <List items={filteredProducts} />
+      <List
+        items={filteredProducts}
+        listItemContainerStyles={styles.listItemContainer}
+        paddingBottom={70}
+      />
     </View>
   );
 };
@@ -39,9 +43,15 @@ export default Products;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.ivory,
-    height: '85%',
-    gap: 40,
+    flex: 9,
+    gap: 20,
     paddingTop: 20,
     paddingHorizontal: 20,
+  },
+  listItemContainer: {
+    height: 120,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 });

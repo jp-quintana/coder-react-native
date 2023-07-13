@@ -15,13 +15,14 @@ export default Header;
 
 const styles = StyleSheet.create({
   container: {
-    height: '15%',
+    // height: '15%',
+    flex: 1.3,
     backgroundColor: colors.darkPurple,
     alignItems: 'center',
     justifyContent: 'center',
   },
   text: {
-    fontWeight: 700,
     color: colors.white,
+    fontFamily: 'Inter-Bold',
   },
 });

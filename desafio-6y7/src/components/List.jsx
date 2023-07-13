@@ -3,9 +3,20 @@ import React from 'react';
 
 import ListItem from './ListItem';
 
-const List = ({ items, handleSelect }) => {
+const List = ({
+  items,
+  handleSelect,
+  listItemContainerStyles,
+  paddingBottom,
+}) => {
   const renderItem = ({ item }) => {
-    return <ListItem item={item} handleSelect={handleSelect} />;
+    return (
+      <ListItem
+        item={item}
+        handleSelect={handleSelect}
+        listItemContainerStyles={listItemContainerStyles}
+      />
+    );
   };
 
   return (
@@ -15,6 +26,7 @@ const List = ({ items, handleSelect }) => {
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom }}
       />
     </View>
   );
