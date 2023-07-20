@@ -3,12 +3,22 @@ import React from 'react';
 
 import { colors } from 'helpers/colors';
 
-const ListItem = ({ item, handleSelect, listItemContainerStyles }) => {
+const ListItem = ({
+  item,
+  navigation,
+  to,
+  listItemContainerStyles,
+  paramsKey,
+}) => {
   const containerStyles = [styles.container, listItemContainerStyles];
 
   return (
     <Pressable
-      onPress={handleSelect ? () => handleSelect(item) : undefined}
+      onPress={
+        navigation
+          ? () => navigation.navigate(to, { [paramsKey]: item.id })
+          : undefined
+      }
       style={containerStyles}
     >
       <Text style={styles.text}>{item.title}</Text>

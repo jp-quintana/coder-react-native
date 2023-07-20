@@ -5,7 +5,9 @@ import ListItem from './ListItem';
 
 const List = ({
   items,
-  handleSelect,
+  navigation,
+  to,
+  paramsKey,
   listItemContainerStyles,
   paddingBottom,
 }) => {
@@ -13,7 +15,9 @@ const List = ({
     return (
       <ListItem
         item={item}
-        handleSelect={handleSelect}
+        navigation={navigation}
+        to={to}
+        paramsKey={paramsKey}
         listItemContainerStyles={listItemContainerStyles}
       />
     );

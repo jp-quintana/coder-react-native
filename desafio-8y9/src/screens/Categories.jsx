@@ -5,7 +5,9 @@ import List from 'components/List';
 
 import { colors } from 'helpers/colors';
 
-const Categories = ({ categories, handleSelectCategory }) => {
+import categories from 'data/categories.json';
+
+const Categories = ({ navigation }) => {
   const formattedCategories = categories.map((title) => ({
     id: title,
     title: title.charAt(0).toUpperCase() + title.slice(1),
@@ -13,7 +15,12 @@ const Categories = ({ categories, handleSelectCategory }) => {
 
   return (
     <View style={styles.container}>
-      <List items={formattedCategories} handleSelect={handleSelectCategory} />
+      <List
+        items={formattedCategories}
+        navigation={navigation}
+        to={'Products'}
+        paramsKey={'category'}
+      />
     </View>
   );
 };

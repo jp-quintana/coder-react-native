@@ -4,10 +4,16 @@ import { useState, useEffect } from 'react';
 import Input from 'components/Input';
 import List from 'components/List';
 
+import products from 'data/products.json';
+
 import { colors } from 'helpers/colors';
 
-const Products = ({ selectedProducts, handleBack }) => {
+const Products = ({ navigation, route }) => {
+  const { category } = route.params;
   const [userInput, setUserInput] = useState('');
+  const [selectedProducts, setSelectedProducts] = useState(
+    products.filter((product) => product.category === category)
+  );
   const [filteredProducts, setFilteredProducts] = useState(selectedProducts);
 
   const handleUserInput = (text) => {
@@ -27,10 +33,13 @@ const Products = ({ selectedProducts, handleBack }) => {
         userInput={userInput}
         handleUserInput={handleUserInput}
         handleClear={() => setUserInput('')}
-        handleBack={handleBack}
+        handleBack={() => navigation.goBack()}
       />
       <List
         items={filteredProducts}
+        navigation={navigation}
+        to="ProductDetail"
+        paramsKey="productId"
         listItemContainerStyles={styles.listItemContainer}
         paddingBottom={70}
       />
