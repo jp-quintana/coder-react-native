@@ -1,4 +1,4 @@
-import { StyleSheet, SafeAreaView, Platform, StatusBar } from 'react-native';
+import { StyleSheet, SafeAreaView, StatusBar } from 'react-native';
 import { useFonts } from 'expo-font';
 
 import Navigator from './src/navigation/Navigator';
@@ -13,18 +13,15 @@ export default function App() {
   }
 
   return (
-    <>
-      <SafeAreaView style={styles.container}>
-        <StatusBar style="auto" />
-        <Navigator />
-      </SafeAreaView>
-    </>
+    <SafeAreaView style={styles.container}>
+      <StatusBar style="auto" />
+      <Navigator />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
 });

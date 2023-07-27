@@ -4,9 +4,10 @@ import React from 'react';
 import { colors } from 'helpers/colors';
 
 const Header = ({ title }) => {
+  console.log('working');
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Header</Text>
+      <Text style={styles.text}>{title}</Text>
     </View>
   );
 };
@@ -15,7 +16,6 @@ export default Header;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1.3,
     backgroundColor: colors.darkPurple,
     alignItems: 'center',
     justifyContent: 'center',
@@ -23,5 +23,7 @@ const styles = StyleSheet.create({
   text: {
     color: colors.white,
     fontFamily: 'Inter-Bold',
+    paddingTop: 20,
+    paddingBottom: 20,
   },
 });

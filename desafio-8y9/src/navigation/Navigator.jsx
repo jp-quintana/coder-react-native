@@ -1,4 +1,3 @@
-import { StyleSheet } from 'react-native';
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
@@ -15,11 +14,11 @@ const Navigator = () => {
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName="Categories"
-        // screenOptions={({ route }) => ({
-        //   header: () => {
-        //     return <Header title={route.name} />;
-        //   },
-        // })}
+        screenOptions={({ route }) => ({
+          header: () => {
+            return <Header title={route.name} />;
+          },
+        })}
       >
         <Stack.Screen name="Categories" component={Categories} />
         <Stack.Screen name="Products" component={Products} />
@@ -30,5 +29,3 @@ const Navigator = () => {
 };
 
 export default Navigator;
-
-const styles = StyleSheet.create({});

@@ -30,8 +30,6 @@ export default Categories;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.ivory,
-    flex: 9,
-    // height: '85%',
     paddingTop: 20,
     paddingHorizontal: 20,
   },
