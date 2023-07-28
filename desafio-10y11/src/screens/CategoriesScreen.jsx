@@ -7,7 +7,7 @@ import { colors } from 'helpers/colors';
 
 import categories from 'data/categories.json';
 
-const Categories = ({ navigation }) => {
+const CategoriesScreen = ({ navigation }) => {
   const formattedCategories = categories.map((title) => ({
     id: title,
     title: title.charAt(0).toUpperCase() + title.slice(1),
@@ -18,18 +18,19 @@ const Categories = ({ navigation }) => {
       <List
         items={formattedCategories}
         navigation={navigation}
-        to={'Products'}
+        to="Products"
         paramsKey={'category'}
       />
     </View>
   );
 };
 
-export default Categories;
+export default CategoriesScreen;
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.ivory,
+    height: '100%',
     paddingTop: 20,
     paddingHorizontal: 20,
   },

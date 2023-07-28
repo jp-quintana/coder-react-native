@@ -3,9 +3,12 @@ import { useState, useEffect } from 'react';
 
 import products from 'data/products.json';
 
+import { useCart } from 'hooks/useCart';
+
 import { colors } from 'helpers/colors';
 
-const ProductDetail = ({ navigation, route }) => {
+const ProductDetailScreen = ({ navigation, route }) => {
+  const { addItem } = useCart();
   const { productId } = route.params;
   const [selectedProduct, setSelectedProduct] = useState(null);
 
@@ -28,21 +31,32 @@ const ProductDetail = ({ navigation, route }) => {
           />
           <Text>{selectedProduct.title}</Text>
           <Text>{selectedProduct.description}</Text>
-          <Pressable style={styles.button} onPress={() => navigation.goBack()}>
-            <Text style={styles.button_text}>Go back</Text>
-          </Pressable>
+          <View style={styles.controls}>
+            <Pressable
+              style={styles.button}
+              onPress={() => addItem(selectedProduct)}
+            >
+              <Text style={styles.button_text}>Add to Cart</Text>
+            </Pressable>
+            <Pressable
+              style={styles.button}
+              onPress={() => navigation.goBack()}
+            >
+              <Text style={styles.button_text}>Go back</Text>
+            </Pressable>
+          </View>
         </View>
       )}
     </View>
   );
 };
 
-export default ProductDetail;
+export default ProductDetailScreen;
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.ivory,
-    flex: 9,
+    height: '100%',
     gap: 20,
     paddingTop: 20,
     paddingHorizontal: 20,
@@ -58,8 +72,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 20,
   },
-  button: {
+  controls: {
     marginTop: 20,
+    flexDirection: 'row',
+    gap: 10,
+  },
+  button: {
     borderRadius: 10,
     padding: 10,
     backgroundColor: colors.mauve,

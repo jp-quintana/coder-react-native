@@ -8,7 +8,7 @@ import products from 'data/products.json';
 
 import { colors } from 'helpers/colors';
 
-const Products = ({ navigation, route }) => {
+const ProductsScreen = ({ navigation, route }) => {
   const { category } = route.params;
   const [userInput, setUserInput] = useState('');
   const [selectedProducts, setSelectedProducts] = useState(
@@ -38,7 +38,7 @@ const Products = ({ navigation, route }) => {
       <List
         items={filteredProducts}
         navigation={navigation}
-        to="ProductDetail"
+        to="Product Details"
         paramsKey="productId"
         listItemContainerStyles={styles.listItemContainer}
         paddingBottom={70}
@@ -47,12 +47,12 @@ const Products = ({ navigation, route }) => {
   );
 };
 
-export default Products;
+export default ProductsScreen;
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.ivory,
-    flex: 9,
+    height: '100%',
     gap: 20,
     paddingTop: 20,
     paddingHorizontal: 20,

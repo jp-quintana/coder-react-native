@@ -52,7 +52,6 @@ export default Products;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.ivory,
-    flex: 9,
     gap: 20,
     paddingTop: 20,
     paddingHorizontal: 20,

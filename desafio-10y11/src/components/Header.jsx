@@ -1,10 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
 
 import { colors } from 'helpers/colors';
 
 const Header = ({ title }) => {
-  console.log('working');
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{title}</Text>

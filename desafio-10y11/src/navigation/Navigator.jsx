@@ -1,31 +1,91 @@
+import { StyleSheet } from 'react-native';
 import React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import Header from 'components/Header';
-import Categories from 'screens/Categories';
-import Products from 'screens/Products';
-import ProductDetail from 'screens/ProductDetail';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-const Stack = createNativeStackNavigator();
+import ShopStack from './ShopStack';
+import CartStack from './CartStack';
+import OrdersStack from './OrdersStack';
+
+import { colors } from 'helpers/colors';
+
+const Tab = createBottomTabNavigator();
 
 const Navigator = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="Categories"
-        screenOptions={({ route }) => ({
-          header: () => {
-            return <Header title={route.name} />;
-          },
-        })}
+      <Tab.Navigator
+        screenOptions={{
+          headerShown: false,
+          tabBarShowLabel: false,
+          tabBarStyle: styles.tab,
+        }}
       >
-        <Stack.Screen name="Categories" component={Categories} />
-        <Stack.Screen name="Products" component={Products} />
-        <Stack.Screen name="ProductDetail" component={ProductDetail} />
-      </Stack.Navigator>
+        <Tab.Screen
+          options={{
+            tabBarIcon: ({ focused }) => {
+              return (
+                <MaterialCommunityIcons
+                  name="home"
+                  size={24}
+                  color={focused ? colors.white : colors.mauve}
+                />
+              );
+            },
+          }}
+          name="Shop"
+          component={ShopStack}
+        />
+        <Tab.Screen
+          options={{
+            tabBarIcon: ({ focused }) => {
+              return (
+                <MaterialCommunityIcons
+                  name="cart"
+                  size={24}
+                  color={focused ? colors.white : colors.mauve}
+                />
+              );
+            },
+          }}
+          name="CartStack"
+          component={CartStack}
+        />
+        <Tab.Screen
+          options={{
+            tabBarIcon: ({ focused }) => {
+              return (
+                <MaterialCommunityIcons
+                  name="format-list-bulleted"
+                  size={24}
+                  color={focused ? colors.white : colors.mauve}
+                />
+              );
+            },
+          }}
+          name="OrdersStack"
+          component={OrdersStack}
+        />
+      </Tab.Navigator>
     </NavigationContainer>
   );
 };
 
 export default Navigator;
+
+const styles = StyleSheet.create({
+  tab: {
+    position: 'absolute',
+    borderRadius: 10,
+    bottom: 15,
+    right: 10,
+    left: 10,
+    backgroundColor: colors.darkPurple,
+  },
+  icon: {
+    padding: '10',
+    backgroundColor: 'red',
+  },
+});

@@ -4,4 +4,5 @@ export const colors = {
   mauve: '#A78295',
   ivory: '#EFE1D1',
   white: '#fff',
+  lightGrey: '#CCCCCC',
 };
