@@ -3,11 +3,13 @@ import React from 'react';
 
 import List from 'components/List';
 
+import { useSelector } from 'react-redux';
+
 import { colors } from 'helpers/colors';
 
-import categories from 'data/categories.json';
-
 const CategoriesScreen = ({ navigation }) => {
+  const categories = useSelector((state) => state.shopReducer.allCategories);
+
   const formattedCategories = categories.map((title) => ({
     id: title,
     title: title.charAt(0).toUpperCase() + title.slice(1),

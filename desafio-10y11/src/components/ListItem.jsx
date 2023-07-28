@@ -1,6 +1,12 @@
 import { StyleSheet, Text, Pressable, Image } from 'react-native';
 import React from 'react';
 
+import { useDispatch } from 'react-redux';
+import {
+  setCategorySelected,
+  setProductSelected,
+} from 'features/shop/shopSlice';
+
 import { colors } from 'helpers/colors';
 
 const ListItem = ({
@@ -12,13 +18,17 @@ const ListItem = ({
 }) => {
   const containerStyles = [styles.container, listItemContainerStyles];
 
+  const dispatch = useDispatch();
+
+  const handleNavigation = () => {
+    if (to === 'Products') dispatch(setCategorySelected(item.id));
+    if (to === 'Product Details') dispatch(setProductSelected(item.id));
+    navigation.navigate(to, { [paramsKey]: item.id });
+  };
+
   return (
     <Pressable
-      onPress={
-        navigation
-          ? () => navigation.navigate(to, { [paramsKey]: item.id })
-          : undefined
-      }
+      onPress={navigation ? handleNavigation : undefined}
       style={containerStyles}
     >
       <Text style={styles.text}>{item.title}</Text>

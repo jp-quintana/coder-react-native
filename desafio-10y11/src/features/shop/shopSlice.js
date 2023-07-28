@@ -6,8 +6,8 @@ import categoriesData from 'data/categories.json';
 export const shopSlice = createSlice({
   name: 'shop',
   initialState: {
-    categorySelected: '',
-    productIdSelected: null,
+    // categorySelected: '',
+    selectedProduct: null,
     allProducts: productsData,
     allCategories: categoriesData,
     selectedProducts: [],
@@ -15,16 +15,18 @@ export const shopSlice = createSlice({
   reducers: {
     setCategorySelected: (state, action) => {
       state.selectedProducts = state.allProducts.filter(
-        (product) => product.category !== action.payload
+        (product) => product.category === action.payload
       );
-      state.categorySelected = action.payload;
+      // state.categorySelected = action.payload;
     },
-    setProductIdSelected: (state, action) => {
-      state.productIdSelected = action.payload;
+    setProductSelected: (state, action) => {
+      state.selectedProduct = state.allProducts.find(
+        (product) => product.id === action.payload
+      );
     },
   },
 });
 
-export const { setCategorySelected, setProductIdSelected } = shopSlice.actions;
+export const { setCategorySelected, setProductSelected } = shopSlice.actions;
 
 export default shopSlice.reducer;

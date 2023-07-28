@@ -1,19 +1,20 @@
 import { StyleSheet, View } from 'react-native';
 import { useState, useEffect } from 'react';
 
+import { useSelector } from 'react-redux';
+
 import Input from 'components/Input';
 import List from 'components/List';
 
-import products from 'data/products.json';
-
 import { colors } from 'helpers/colors';
 
-const ProductsScreen = ({ navigation, route }) => {
-  const { category } = route.params;
-  const [userInput, setUserInput] = useState('');
-  const [selectedProducts, setSelectedProducts] = useState(
-    products.filter((product) => product.category === category)
+const ProductsScreen = ({ navigation }) => {
+  const selectedProducts = useSelector(
+    (state) => state.shopReducer.selectedProducts
   );
+
+  const [userInput, setUserInput] = useState('');
+
   const [filteredProducts, setFilteredProducts] = useState(selectedProducts);
 
   const handleUserInput = (text) => {

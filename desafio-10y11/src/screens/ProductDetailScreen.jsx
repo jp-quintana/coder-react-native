@@ -1,24 +1,17 @@
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
-import { useState, useEffect } from 'react';
 
-import products from 'data/products.json';
+import { useSelector } from 'react-redux';
 
 import { useCart } from 'hooks/useCart';
 
 import { colors } from 'helpers/colors';
 
-const ProductDetailScreen = ({ navigation, route }) => {
+const ProductDetailScreen = ({ navigation }) => {
   const { addItem } = useCart();
-  const { productId } = route.params;
-  const [selectedProduct, setSelectedProduct] = useState(null);
 
-  useEffect(() => {
-    const selectedProduct = products.find(
-      (product) => product.id === productId
-    );
-
-    setSelectedProduct(selectedProduct);
-  }, []);
+  const selectedProduct = useSelector(
+    (state) => state.shopReducer.selectedProduct
+  );
 
   return (
     <View style={styles.container}>
