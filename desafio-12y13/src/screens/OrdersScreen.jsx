@@ -9,9 +9,9 @@ import OrderList from 'components/OrderList';
 import { colors } from 'helpers/colors';
 
 const OrdersScreen = ({ navigation }) => {
-  const { user } = useSelector((state) => state.cartReducer);
+  const { email } = useSelector((state) => state.userReducer);
 
-  const { data: orders, isLoading, refetch } = useGetOrdersByUserQuery(user);
+  const { data: orders, isLoading, refetch } = useGetOrdersByUserQuery(email);
 
   // TODO: Update
   useEffect(() => {

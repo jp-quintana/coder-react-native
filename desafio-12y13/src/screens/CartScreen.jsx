@@ -14,7 +14,8 @@ const CartScreen = () => {
   const { navigate } = useNavigation();
 
   const [triggerPostCart, result] = usePostCartMutation();
-  const { user, items, updatedAt } = useSelector((state) => state.cartReducer);
+  const { items, updatedAt } = useSelector((state) => state.cartReducer);
+  const { email } = useSelector((state) => state.userReducer);
   const { emptyCart } = useCart();
 
   const cartTotal = items.reduce((a, b) => a + b.quantity * b.price, 0);
@@ -22,7 +23,7 @@ const CartScreen = () => {
   const handleCreateOrder = async () => {
     try {
       await triggerPostCart({
-        user,
+        user: email,
         items,
         total: cartTotal,
         createdAt: updatedAt,

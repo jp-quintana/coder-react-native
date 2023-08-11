@@ -8,7 +8,8 @@ const OrderList = ({ items }) => {
     <View style={styles.container}>
       <FlatList
         data={items}
-        keyExtractor={(item) => item.id}
+        // TODO: update key
+        keyExtractor={(item) => item.createdAt}
         renderItem={({ item }) => <Order order={item} />}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 70 }}
