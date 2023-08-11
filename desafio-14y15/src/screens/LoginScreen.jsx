@@ -38,10 +38,12 @@ const LoginScreen = ({ navigation }) => {
 
   useEffect(() => {
     if (resultSignIn.isSuccess) {
+      console.log('aca', resultSignIn.data.localId);
       dispatch(
         setUser({
           email: resultSignIn.data.email,
           idToken: resultSignIn.data.idToken,
+          localId: resultSignIn.data.localId,
         })
       );
     }

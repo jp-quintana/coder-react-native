@@ -12,6 +12,7 @@ export const userSlice = createSlice({
     setUser: (state, action) => {
       state.email = action.payload.email;
       state.idToken = action.payload.idToken;
+      state.localId = action.payload.localId;
     },
     logout: (state) => {
       state = {
@@ -21,12 +22,12 @@ export const userSlice = createSlice({
         profileImage: null,
       };
     },
-    saveImage: (state) => {
+    saveImage: (state, action) => {
       state.profileImage = action.payload;
     },
   },
 });
 
-export const { setUser, logout } = userSlice.actions;
+export const { setUser, logout, saveImage } = userSlice.actions;
 
 export default userSlice.reducer;

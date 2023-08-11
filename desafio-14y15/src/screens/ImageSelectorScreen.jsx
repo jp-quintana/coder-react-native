@@ -24,11 +24,9 @@ const ImageSelectorScreen = ({ navigation }) => {
   };
 
   const pickImage = async () => {
-    //Permission for camera
     const isCameraOk = await verifyCameraPermissions();
 
     if (isCameraOk) {
-      // No permissions request is necessary for launching the image library
       let result = await ImagePicker.launchCameraAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.All,
         allowsEditing: true,
@@ -50,16 +48,12 @@ const ImageSelectorScreen = ({ navigation }) => {
       // Request device storage access permission
       const { status } = await MediaLibrary.requestPermissionsAsync();
       if (status === 'granted') {
-        console.log('Only valid on emulators and physical devices');
-        // Save image to media library and create an asset
         const response = await MediaLibrary.createAssetAsync(image);
-        console.log(response.uri);
-        //Save image link on profileImages remote location
+        console.log('aca', localId);
         triggerSaveImage({
           image: response.uri,
-          localId: localId,
+          localId,
         });
-        // Set image on redux state
         dispatch(saveImage(response.uri));
       }
     } catch (error) {
