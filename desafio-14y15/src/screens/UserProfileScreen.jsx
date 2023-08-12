@@ -19,6 +19,10 @@ const UserProfileScreen = ({ navigation }) => {
     navigation.navigate('Image Selector');
   };
 
+  const launchLocation = async () => {
+    navigation.navigate('Address');
+  };
+
   return (
     <View style={styles.container}>
       <Image
@@ -31,6 +35,7 @@ const UserProfileScreen = ({ navigation }) => {
         resizeMode="cover"
       />
       <AddButton onPress={launchCamera} title="Add profile picture" />
+      <AddButton onPress={launchLocation} title="My address" />
     </View>
   );
 };
