@@ -7,8 +7,6 @@ import { colors } from 'helpers/colors';
 import { useGetProfileImageQuery } from 'services/shopServices';
 
 const UserProfileScreen = ({ navigation }) => {
-  // const {profileImage, imageCamera} = useSelector(state => state.authReducer.value);
-
   const { localId, profileImage } = useSelector((state) => state.userReducer);
 
   const { data: image } = useGetProfileImageQuery(localId);

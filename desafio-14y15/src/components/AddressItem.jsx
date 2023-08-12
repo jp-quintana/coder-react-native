@@ -12,7 +12,7 @@ const AddressItem = ({ location, navigation }) => {
 
   return (
     <View style={styles.card} onPress={() => {}}>
-      <View style={styles.textContainer}>
+      <View style={styles.text_container}>
         <Text style={styles.text}>{location.address}</Text>
       </View>
       <Pressable onPress={onChangeLocation}>
@@ -28,30 +28,28 @@ export default AddressItem;
 
 const styles = StyleSheet.create({
   card: {
-    // height: 100,
-    // backgroundColor: colors.red,
-    // padding: 10,
-    // margin: 10,
-    // borderWidth: 2,
-    // borderRadius: 10,
-    // flexDirection: 'row',
-    // justifyContent: 'space-between',
-    // alignItems: 'center',
+    height: 100,
+    backgroundColor: colors.mauve,
+    padding: 10,
+    margin: 10,
+    borderWidth: 2,
+    borderRadius: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
-  textContainer: {
-    // width: '70%',
-    // flexDirection: 'column',
-    // justifyContent: 'flex-start',
-    // alignItems: 'flex-start',
+  text_container: {
+    width: '70%',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
   },
   text: {
-    // fontFamily: 'Josefin',
-    // fontSize: 17,
-    // color: 'black',
+    fontSize: 17,
+    color: 'black',
   },
   text2: {
-    // fontFamily: 'Josefin',
-    // fontSize: 19,
-    // color: colors.pink,
+    fontSize: 19,
+    color: colors.pink,
   },
 });

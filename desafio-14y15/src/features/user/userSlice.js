@@ -31,7 +31,7 @@ export const userSlice = createSlice({
       state.profileImage = action.payload;
     },
     setUserLocation: (state, action) => {
-      state.value.location = action.payload;
+      state.location = action.payload;
     },
   },
 });

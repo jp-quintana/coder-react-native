@@ -20,10 +20,6 @@ const LocationSelectorScreen = ({ navigation }) => {
   const { localId } = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
 
-  /* const {localId} = useSelector(state => state.userReducer.value)
-    const [triggerPostAddress, result] = usePostUserLocationMutation();
-    const dispatch = useDispatch(); */
-
   console.log(location);
 
   const onConfirmAddress = () => {
@@ -33,6 +29,8 @@ const LocationSelectorScreen = ({ navigation }) => {
       address,
     };
 
+    console.log(locationFormatted);
+
     dispatch(setUserLocation(locationFormatted));
 
     triggerPostUserLocation({
@@ -41,17 +39,8 @@ const LocationSelectorScreen = ({ navigation }) => {
     });
 
     navigation.goBack();
-    /* const locationFormatted = {
-            latitude: location.latitude,
-            longitude: location.longitude,
-            address: address
-        }
-        dispatch(setUserLocation(locationFormatted))
-        
-        triggerPostAddress({location: locationFormatted, localId}) */
   };
 
-  //Location requested on mount
   useEffect(() => {
     (async () => {
       try {
@@ -80,7 +69,9 @@ const LocationSelectorScreen = ({ navigation }) => {
           const url_reverse_geocode = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.latitude},${location.longitude}&key=${google_maps_api_key}`;
           const response = await fetch(url_reverse_geocode);
           const data = await response.json();
-          console.dir(data);
+          // console.dir(data);
+
+          console.log('aca', data);
           setAddress(data.results[0].formatted_address);
         }
       } catch (error) {
@@ -92,7 +83,6 @@ const LocationSelectorScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>My Address</Text>
-      {/* Flatlist con las directions */}
       {location ? (
         <>
           <Text style={styles.text}>
@@ -104,7 +94,7 @@ const LocationSelectorScreen = ({ navigation }) => {
         </>
       ) : (
         <>
-          <View style={styles.noLocationContainer}>
+          <View style={styles.no_location_container}>
             <Text>{error}</Text>
           </View>
         </>
@@ -117,26 +107,28 @@ export default LocationSelectorScreen;
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    // alignItems: 'center',
-    // justifyContent: 'flex-start',
+    backgroundColor: colors.ivory,
+    height: '100%',
+    paddingTop: 20,
+    paddingHorizontal: 20,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    flex: 1,
   },
   text: {
-    // paddingTop: 20,
-    // fontSize: 18,
+    paddingTop: 20,
+    fontSize: 18,
   },
-  noLocationContainer: {
-    // width: 200,
-    // height: 200,
-    // borderWidth: 2,
-    // borderColor: colors.peach,
-    // padding: 10,
-    // justifyContent: 'center',
-    // alignItems: 'center',
+  no_location_container: {
+    width: 200,
+    height: 200,
+    borderWidth: 2,
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   address: {
-    // padding: 10,
-    // fontFamily: 'Ubuntu',
-    // fontSize: 16,
+    padding: 10,
+    fontSize: 16,
   },
 });

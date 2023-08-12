@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import AddButton from 'components/AddButton';
 import AddressItem from 'components/AddressItem';
 import { useGetUserLocationQuery } from 'services/shopServices';
+import { colors } from 'helpers/colors';
 
 const AddressScreen = ({ navigation }) => {
   const { location, localId } = useSelector((state) => state.userReducer);
@@ -39,8 +40,16 @@ export default AddressScreen;
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'flex-start',
+    backgroundColor: colors.ivory,
+    height: '100%',
+    paddingTop: 20,
+    paddingHorizontal: 20,
     alignItems: 'center',
+    justifyContent: 'flex-start',
+    flex: 1,
+    // gap: 20,
+    // justifyContent: 'flex-start',
+    // alignItems: 'center',
   },
   text: {
     paddingVertical: 20,
