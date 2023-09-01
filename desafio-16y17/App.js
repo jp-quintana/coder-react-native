@@ -1,32 +1,20 @@
-import { StyleSheet, SafeAreaView, StatusBar } from 'react-native';
-import { useFonts } from 'expo-font';
-
-import Navigator from './src/navigation/Navigator';
-import { Provider } from 'react-redux';
-
-import store from './src/store/store';
-
-import { fontVariants } from 'helpers/fonts';
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
-  const [fontsLoaded] = useFonts(fontVariants);
-
-  if (!fontsLoaded) {
-    return null;
-  }
-
   return (
-    <Provider store={store}>
-      <SafeAreaView style={styles.container}>
-        <StatusBar style="auto" />
-        <Navigator />
-      </SafeAreaView>
-    </Provider>
+    <View style={styles.container}>
+      <Text>Open up App.js to start working on your app!</Text>
+      <StatusBar style="auto" />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
