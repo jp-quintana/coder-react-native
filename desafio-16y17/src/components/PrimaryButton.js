@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Colors } from '../helpers/colors';
 
-const Button = ({ children, isAlt, icon, onPress }) => {
+const PrimaryButton = ({ children, isAlt, icon, onPress }) => {
   const buttonBackground = {
     backgroundColor: isAlt ? 'white' : Colors.primary,
   };
@@ -27,8 +27,8 @@ const Button = ({ children, isAlt, icon, onPress }) => {
   );
 };
 
-export default Button;
-
+export default PrimaryButton;
+PrimaryButton;
 const styles = StyleSheet.create({
   container: {
     borderRadius: 18,

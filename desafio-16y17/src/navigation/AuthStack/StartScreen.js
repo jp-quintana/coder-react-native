@@ -3,7 +3,7 @@ import React from 'react';
 import { Colors } from '../../helpers/colors';
 import { Ionicons } from '@expo/vector-icons';
 
-import Button from '../../components/Button';
+import PrimaryButton from '../../components/PrimaryButton';
 
 const StartScreen = ({ navigation }) => {
   return (
@@ -17,7 +17,7 @@ const StartScreen = ({ navigation }) => {
         <Text style={styles.subtitle}>
           The best Italian food delivered to your home{' '}
         </Text>
-        <Button
+        <PrimaryButton
           isAlt={true}
           icon={
             <Ionicons name="arrow-forward" size={20} color={Colors.primary} />
@@ -25,7 +25,7 @@ const StartScreen = ({ navigation }) => {
           onPress={() => navigation.navigate('LoginScreen')}
         >
           Get started
-        </Button>
+        </PrimaryButton>
       </View>
     </View>
   );
