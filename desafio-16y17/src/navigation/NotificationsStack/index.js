@@ -1,15 +1,15 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import FavoritesScreen from './FavoritesScreen';
+import NotificationsScreen from './NotificationsScreen';
 
 import { Colors } from '../../helpers/colors';
 
 const Stack = createNativeStackNavigator();
 
-const FavoritesStack = () => {
+const NewsStack = () => {
   return (
     <Stack.Navigator
-      initialRouteName="FavoritesScreen"
+      initialRouteName="NotificationsScreen"
       screenOptions={{
         contentStyle: {
           backgroundColor: Colors.background,
@@ -25,12 +25,12 @@ const FavoritesStack = () => {
       }}
     >
       <Stack.Screen
-        name="FavoritesScreen"
-        component={FavoritesScreen}
-        options={{ title: 'Favorites' }}
+        name="NotificationsScreen"
+        component={NotificationsScreen}
+        options={{ title: 'Notifications' }}
       />
     </Stack.Navigator>
   );
 };
 
-export default FavoritesStack;
+export default NewsStack;

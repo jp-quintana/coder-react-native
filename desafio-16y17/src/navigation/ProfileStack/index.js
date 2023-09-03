@@ -29,7 +29,11 @@ const ProfileStack = () => {
         component={ProfileScreen}
         options={{ title: 'Profile' }}
       />
-      <Stack.Screen name="OrdersScreen" component={OrdersScreen} />
+      <Stack.Screen
+        name="OrdersScreen"
+        component={OrdersScreen}
+        options={{ title: 'Orders' }}
+      />
     </Stack.Navigator>
   );
 };

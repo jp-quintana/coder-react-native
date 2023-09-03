@@ -1,14 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 
-const NewsScreen = () => {
+const NotificationsScreen = () => {
   return (
     <View>
-      <Text>NewsScreen</Text>
+      <Text>NotificationsScreen</Text>
     </View>
   );
 };
 
-export default NewsScreen;
+export default NotificationsScreen;
 
 const styles = StyleSheet.create({});

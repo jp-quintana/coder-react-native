@@ -1,9 +1,9 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
 import React from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../../helpers/colors';
 
-const ProfileScreen = () => {
+const ProfileScreen = ({ navigation }) => {
   const user = false;
   return (
     <View style={styles.container}>
@@ -23,14 +23,29 @@ const ProfileScreen = () => {
             <Text style={styles.user_item_text}>Mail</Text>
           </View>
           <View style={styles.user_item}>
-            <Ionicons name="call-outline" size={24} color={Colors.text} />
+            <Ionicons name="location-outline" size={24} color={Colors.text} />
             <Text style={styles.user_item_text}>Address</Text>
           </View>
         </View>
       </View>
       <View style={styles.option}>
-        <Ionicons name="receipt-outline" size={24} color={Colors.text} />
-        <Text style={styles.option_text}>Orders</Text>
+        <Pressable
+          onPress={() => navigation.navigate('OrdersScreen')}
+          android_ripple={{ color: '#ccc' }}
+          style={({ pressed }) => [
+            styles.button,
+            pressed ? styles.pressed : undefined,
+          ]}
+        >
+          <Ionicons name="receipt-outline" size={24} color={Colors.text} />
+          <Text style={styles.option_text}>Orders</Text>
+          <Ionicons
+            name="ios-chevron-forward"
+            size={24}
+            color={Colors.text}
+            style={styles.chevron}
+          />
+        </Pressable>
       </View>
     </View>
   );
@@ -84,9 +99,6 @@ const styles = StyleSheet.create({
     color: Colors.text,
   },
   option: {
-    flexDirection: 'row',
-    paddingVertical: 16,
-    paddingHorizontal: 32,
     elevation: 4,
     shadowColor: '#000',
     backgroundColor: '#fff',
@@ -96,8 +108,17 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
   },
+  button: {
+    flexDirection: 'row',
+    paddingVertical: 16,
+    paddingHorizontal: 32,
+    gap: 16,
+  },
   option_text: {
     fontWeight: 'bold',
     fontSize: 18,
+  },
+  chevron: {
+    marginLeft: 'auto',
   },
 });

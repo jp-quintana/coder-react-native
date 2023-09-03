@@ -6,6 +6,8 @@ import { CATEGORIES } from '../../data/categories';
 import SearchInput from '../../components/SearchInput';
 import CategoryButton from '../../components/CategoryButton';
 
+import { Colors } from '../../helpers/colors';
+
 const HomeScreen = () => {
   const [userInput, setUserInput] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('pasta');
@@ -19,7 +21,6 @@ const HomeScreen = () => {
           handleClear={() => setUserInput('')}
         />
       </View>
-
       <View style={styles.categories_container}>
         <FlatList
           data={CATEGORIES}
@@ -37,6 +38,17 @@ const HomeScreen = () => {
           showsHorizontalScrollIndicator={false}
         />
       </View>
+      {userInput.length > 0 && (
+        <>
+          <Text style={styles.title}>Search Results</Text>
+        </>
+      )}
+      {userInput.length === 0 && (
+        <>
+          <Text style={styles.title}>Featured products</Text>
+          <Text style={styles.title}>All products</Text>
+        </>
+      )}
     </View>
   );
 };
@@ -52,4 +64,10 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   categories_container: {},
+  title: {
+    paddingHorizontal: 16,
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: Colors.text,
+  },
 });

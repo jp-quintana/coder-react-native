@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import AuthStack from './AuthStack';
 import HomeStack from './HomeStack';
-import NewsStack from './NewsStack';
+import NotificationsStack from './NotificationsStack';
 import CartStack from './CartStack';
 import FavoritesStack from './FavoritesStack';
 import ProfileStack from './ProfileStack';
@@ -45,8 +45,8 @@ const Navigator = () => {
               }}
             />
             <Tab.Screen
-              name="News"
-              component={NewsStack}
+              name="Notifications"
+              component={NotificationsStack}
               options={{
                 tabBarIcon: ({ focused }) => {
                   return (
