@@ -1,0 +1,122 @@
+[
+  {
+    "id": "1",
+    "categoryId": "pasta",
+    "title": "linguine al pesto rosso",
+    "description": "Indulge in our linguine with pesto rosso sauce - a tantalizing blend of sun-dried tomatoes, basil, and creamy goodness. Pure pasta perfection!",
+    "price": "11.99",
+    "imageUrl": "https://images.unsplash.com/photo-1618931445758-0307ee4027c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80",
+    "featured": true,
+    "vegetarian": true
+  },
+  {
+    "id": "2",
+    "categoryId": "pasta",
+    "title": "spaghetti carbonara",
+    "description": "Savor classic Italian comfort with our Spaghetti Carbonara - a creamy, savory delight with crispy bacon and Parmesan. Simply irresistible!",
+    "price": "14.99",
+    "imageUrl": "https://images.unsplash.com/photo-1594614833328-325aff13fc6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80",
+    "featured": true,
+    "vegetarian": false
+  },
+  {
+    "id": "3",
+    "categoryId": "pasta",
+    "title": "spaghetti al pesto di pistacchi",
+    "description": "Celebrate Italian excellence with our Spaghetti Al Pesto Di Pistacchi - where perfectly cooked pasta meets the rich, nutty allure of pistachio pesto. A symphony of flavors awaits!",
+    "price": "12.99",
+    "imageUrl": "https://images.unsplash.com/photo-1605590955562-be1a5fda4161?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1998&q=80",
+    "featured": false,
+    "vegetarian": true
+  },
+  {
+    "id": "4",
+    "categoryId": "pasta",
+    "title": "beef penne with mushroom sauce",
+    "description": "Indulge in the rich flavors of our Beef Penne With Mushroom Sauce - tender beef, earthy mushrooms, and creamy perfection, all in one delightful dish.",
+    "price": "13.99",
+    "imageUrl": "https://images.unsplash.com/photo-1581228258201-fe6e5861d1f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+    "featured": false,
+    "vegetarian": false
+  },
+  {
+    "id": "5",
+    "categoryId": "pasta",
+    "title": "spaghetti with meatballs",
+    "description": "Indulge in a classic Italian favorite: Spaghetti with Meatballs. Our perfectly cooked pasta, paired with juicy, seasoned meatballs and savory marinara sauce, is a timeless comfort you'll savor.",
+    "price": "12.99",
+    "imageUrl": "https://images.unsplash.com/photo-1555486666-57a121c852cc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1786&q=80",
+    "featured": true,
+    "vegetarian": false
+  },
+  {
+    "id": "6",
+    "categoryId": "pizza",
+    "title": "brunch pizza",
+    "description": "Experience a delightful brunch anytime with our Brunch Pizza! Featuring sunny-side-up eggs, savory pepperoni, and sun-dried tomatoes, it's breakfast and lunch in every slice.",
+    "price": "17.99",
+    "imageUrl": "https://images.unsplash.com/photo-1605591099585-087b3d54cd45?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2060&q=80",
+    "featured": false,
+    "vegetarian": false
+  },
+  {
+    "id": "7",
+    "categoryId": "pizza",
+    "title": "pepperoni pizza",
+    "description": "Indulge in the classic perfection of our Napoli Pepperoni Pizza. Savor the mouthwatering blend of authentic Italian flavors and crispy pepperoni, a timeless favorite!",
+    "price": "19.99",
+    "imageUrl": "https://images.unsplash.com/photo-1605346210866-21ae863894bb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1946&q=80",
+    "featured": true,
+    "vegetarian": false
+  },
+  {
+    "id": "8",
+    "categoryId": "pizza",
+    "title": "margherita pizza",
+    "description": "Experience pizza simplicity at its finest with our Margherita Pizza. Savory tomato sauce, creamy mozzarella, and fragrant basil unite in every delectable bite, a true Italian masterpiece.",
+    "price": "16.99",
+    "imageUrl": "https://images.unsplash.com/photo-1604068549290-dea0e4a305ca?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+    "featured": false,
+    "vegetarian": true
+  },
+  {
+    "id": "9",
+    "categoryId": "pizza",
+    "title": "truffle mushroom pizza",
+    "description": "Indulge in culinary luxury with our Truffle and Portobello Mushroom Pizza. Delight in the earthy richness of Portobello mushrooms paired with the exquisite aroma of truffle, a gourmet masterpiece.",
+    "price": "27.99",
+    "imageUrl": "https://images.unsplash.com/photo-1596388079362-fdab15f109cc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1796&q=80",
+    "featured": true,
+    "vegetarian": true
+  },
+  {
+    "id": "10",
+    "categoryId": "pizza",
+    "title": "spicy bacon pizza",
+    "description": "Satisfy your craving for bold flavors with our Spicy Bacon Pizza. Featuring crispy bacon, zesty serrano peppers, sweet cherry tomatoes, and the freshness of arugula and basil - it's a fiery and delicious masterpiece.",
+    "price": "20.99",
+    "imageUrl": "https://images.unsplash.com/photo-1598023696416-0193a0bcd302?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1872&q=80",
+    "featured": false,
+    "vegetarian": false
+  },
+  {
+    "id": "11",
+    "categoryId": "pizza",
+    "title": "riccota pepperoni pizza",
+    "description": "Delight in the creamy richness of our Ricotta Pepperoni Pizza. Crafted with velvety ricotta and Parmesan cheeses, complemented by savory pepperonis and sweet cherry tomatoes - a luscious symphony of flavors.",
+    "price": "22.99",
+    "imageUrl": "https://images.unsplash.com/photo-1587327326560-0fa95c573373?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2055&q=80",
+    "featured": true,
+    "vegetarian": false
+  },  
+  {
+    "id": "12",
+    "categoryId": "dessert",
+    "title": "pistachio cannoli trio",
+    "description": "Savor the sweet delight of our Pistachio Cannoli Trio - three heavenly pastries filled with rich pistachio cream, each bite a taste of Italian dessert perfection.",
+    "price": "5.99",
+    "imageUrl": "https://images.unsplash.com/photo-1611292984550-6dd8def2e668?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1907&q=80",
+    "featured": true,
+    "vegetarian": false
+  }
+]

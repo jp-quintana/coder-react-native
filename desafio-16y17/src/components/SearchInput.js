@@ -1,4 +1,4 @@
-import { StyleSheet, TextInput, View, Pressable } from 'react-native';
+import { StyleSheet, TextInput, View, Pressable, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 import { Colors } from '../helpers/colors';
