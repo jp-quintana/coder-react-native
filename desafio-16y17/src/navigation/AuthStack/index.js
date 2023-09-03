@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Colors } from '../../helpers/colors';
 
 import StartScreen from './StartScreen';
+import LoginScreen from './LoginScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -13,6 +14,14 @@ const AuthStack = () => {
         contentStyle: {
           backgroundColor: Colors.background,
         },
+        headerTitleAlign: 'center',
+        headerShadowVisible: false,
+        headerStyle: {
+          backgroundColor: Colors.background,
+        },
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
       }}
     >
       <Stack.Screen
@@ -20,6 +29,13 @@ const AuthStack = () => {
         component={StartScreen}
         options={{
           headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="LoginScreen"
+        component={LoginScreen}
+        options={{
+          title: 'Login',
         }}
       />
     </Stack.Navigator>

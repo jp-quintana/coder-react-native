@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import Button from '../../components/Button';
 
-const StartScreen = () => {
+const StartScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Image
@@ -22,6 +22,7 @@ const StartScreen = () => {
           icon={
             <Ionicons name="arrow-forward" size={20} color={Colors.primary} />
           }
+          onPress={() => navigation.navigate('LoginScreen')}
         >
           Get started
         </Button>
