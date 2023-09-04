@@ -1,14 +1,17 @@
 import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 import { useState, useLayoutEffect, useEffect } from 'react';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { addItem } from '../../features/cart/cartSlice';
 
 import PrimaryButon from '../../components/PrimaryButton';
 
 import { Colors } from '../../helpers/colors';
+import { formatPrice } from '../../helpers/format';
 
 const ProductDetailScreen = ({ navigation, route }) => {
   const { products } = useSelector((state) => state.shopReducer);
+  const dispatch = useDispatch();
 
   const { selectedProductId } = route.params;
 
@@ -22,10 +25,14 @@ const ProductDetailScreen = ({ navigation, route }) => {
       selected.title.charAt(0).toUpperCase() + selected.title.slice(1);
     navigation.setOptions({
       title: capitalizedTitle,
-      // headerTitleStyle: { textTransform: 'capitalize' },
     });
     setSelectedProduct(selected);
   }, []);
+
+  const handleAddItem = () => {
+    dispatch(addItem({ itemToAdd: selectedProduct }));
+    navigation.navigate('Cart');
+  };
 
   return (
     <View style={styles.container}>
@@ -39,15 +46,21 @@ const ProductDetailScreen = ({ navigation, route }) => {
           <ScrollView style={styles.scroll_view}>
             <View style={styles.details_container}>
               <View style={styles.title_price_container}>
-                <Text style={styles.title}>{selectedProduct.title}</Text>
-                <Text style={styles.price}>{`$${selectedProduct.price}`}</Text>
+                <Text
+                  style={styles.title}
+                  numberOfLines={1}
+                  ellipsizeMode="tail"
+                >
+                  {selectedProduct.title}
+                </Text>
+                <Text style={styles.price}>{`$ ${formatPrice(
+                  selectedProduct.price
+                )}`}</Text>
               </View>
               <Text style={styles.description}>
                 {selectedProduct.description}
               </Text>
-              <PrimaryButon onPress={() => console.log('Pressed')}>
-                Add To Cart
-              </PrimaryButon>
+              <PrimaryButon onPress={handleAddItem}>Add To Cart</PrimaryButon>
             </View>
           </ScrollView>
         </>
@@ -80,9 +93,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   title: {
-    fontSize: 24,
     fontWeight: 'bold',
     textTransform: 'capitalize',
+    fontSize: 24,
     flex: 1,
   },
   price: {

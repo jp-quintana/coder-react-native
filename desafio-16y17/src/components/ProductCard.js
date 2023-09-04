@@ -10,6 +10,7 @@ import { useRoute, useNavigation } from '@react-navigation/native';
 import React from 'react';
 
 import { Colors } from '../helpers/colors';
+import { formatPrice } from '../helpers/format';
 
 const ProductCard = ({ id, title, imageUrl, price, isLastElement }) => {
   const lastElementMargin = isLastElement ? { marginRight: 16 } : undefined;
@@ -19,8 +20,15 @@ const ProductCard = ({ id, title, imageUrl, price, isLastElement }) => {
 
   const navArgs = [];
 
-  if (route.name === 'HomeScreen')
+  if (route.name === 'HomeScreen') {
     navArgs.push('ProductDetailScreen', { selectedProductId: id });
+  }
+  if (route.name === 'CartScreen') {
+    navArgs.push('Home', {
+      screen: 'ProductDetailScreen',
+      params: { selectedProductId: id },
+    });
+  }
   return (
     <View style={[styles.container, lastElementMargin]}>
       <Pressable
@@ -34,7 +42,7 @@ const ProductCard = ({ id, title, imageUrl, price, isLastElement }) => {
         <Image source={{ uri: imageUrl }} style={styles.image} />
         <View style={styles.content_container}>
           <Text style={styles.title}>{title}</Text>
-          <Text style={styles.price}>{`$${price}`}</Text>
+          <Text style={styles.price}>{`$ ${formatPrice(price)}`}</Text>
         </View>
       </Pressable>
     </View>

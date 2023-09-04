@@ -30,11 +30,12 @@ const Navigator = () => {
     if (fetchedProducts?.length > 0) dispatch(setProducts(fetchedProducts));
   }, [productsBeingFetched]);
 
-  const auth = false;
+  const auth = true;
+
   return (
     <NavigationContainer>
       <>
-        {auth ? (
+        {!auth ? (
           <AuthStack />
         ) : (
           <>

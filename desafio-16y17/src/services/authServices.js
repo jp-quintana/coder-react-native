@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { api_key } from '../db/firebaseConfig';
+import { api_key } from '../db/config';
 
 export const authApi = createApi({
   reducerPath: 'authApi',

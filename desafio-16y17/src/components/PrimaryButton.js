@@ -28,7 +28,7 @@ const PrimaryButton = ({ children, isAlt, icon, onPress }) => {
 };
 
 export default PrimaryButton;
-PrimaryButton;
+
 const styles = StyleSheet.create({
   container: {
     borderRadius: 18,
