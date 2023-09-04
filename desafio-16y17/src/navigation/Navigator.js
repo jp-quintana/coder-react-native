@@ -22,6 +22,7 @@ const Tab = createBottomTabNavigator();
 const Navigator = () => {
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.shopReducer);
+  const { localId } = useSelector((state) => state.userReducer);
 
   const { data: fetchedProducts, isLoading: productsBeingFetched } =
     useGetProductsQuery();
@@ -30,12 +31,10 @@ const Navigator = () => {
     if (fetchedProducts?.length > 0) dispatch(setProducts(fetchedProducts));
   }, [productsBeingFetched]);
 
-  const auth = true;
-
   return (
     <NavigationContainer>
       <>
-        {!auth ? (
+        {!localId ? (
           <AuthStack />
         ) : (
           <>

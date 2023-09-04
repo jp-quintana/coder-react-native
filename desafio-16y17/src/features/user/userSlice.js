@@ -4,6 +4,7 @@ export const userSlice = createSlice({
   name: 'user',
   initialState: {
     email: null,
+    displayName: null,
     idToken: null,
     localId: null,
     profileImage: null,
@@ -19,6 +20,7 @@ export const userSlice = createSlice({
       state.email = action.payload.email;
       state.idToken = action.payload.idToken;
       state.localId = action.payload.localId;
+      state.displayName = action.payload.displayName;
     },
     logout: (state) => {
       state = {

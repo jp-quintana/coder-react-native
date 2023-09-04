@@ -1,5 +1,14 @@
-import { StyleSheet, Text, View, TextInput, Platform } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Platform,
+  Pressable,
+} from 'react-native';
 import { useState } from 'react';
+
+import { Ionicons } from '@expo/vector-icons';
 
 import { Colors } from '../helpers/colors';
 
@@ -17,10 +26,10 @@ const AuthInput = ({ secureTextEntry, placeholder, onChangeText, value }) => {
         placeholderTextColor={Colors.text}
       />
       {secureTextEntry && (
-        <>
-          {isSecure && <Text>Show</Text>}
-          {!isSecure && <Text>Hide</Text>}
-        </>
+        <Pressable onPress={() => setIsSecure((prevState) => !prevState)}>
+          {isSecure && <Ionicons name="eye" size={24} color="black" />}
+          {!isSecure && <Ionicons name="eye-off" size={24} color="black" />}
+        </Pressable>
       )}
     </View>
   );

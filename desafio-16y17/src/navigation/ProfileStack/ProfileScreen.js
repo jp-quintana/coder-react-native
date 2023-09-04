@@ -7,15 +7,20 @@ import {
   Platform,
 } from 'react-native';
 import React from 'react';
+import { useSelector } from 'react-redux';
+
 import { Ionicons } from '@expo/vector-icons';
+
 import { Colors } from '../../helpers/colors';
 
 const ProfileScreen = ({ navigation }) => {
-  const user = false;
+  const { profileImage, displayName } = useSelector(
+    (state) => state.userReducer
+  );
   return (
     <View style={styles.container}>
       <View style={styles.user_container}>
-        {user ? (
+        {profileImage ? (
           <View></View>
         ) : (
           <Image
@@ -23,7 +28,7 @@ const ProfileScreen = ({ navigation }) => {
             style={styles.user_image}
           />
         )}
-        <Text style={styles.user_name}>Jp Quintana</Text>
+        <Text style={styles.user_name}>{displayName}</Text>
         <View style={styles.user_content}>
           <View style={styles.user_item}>
             <Ionicons name="mail-outline" size={24} color={Colors.text} />

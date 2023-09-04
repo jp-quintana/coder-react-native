@@ -3,6 +3,7 @@ import { Colors } from '../../helpers/colors';
 
 import StartScreen from './StartScreen';
 import LoginScreen from './LoginScreen';
+import RegisterScreen from './RegisterScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -36,6 +37,14 @@ const AuthStack = () => {
         component={LoginScreen}
         options={{
           title: 'Login',
+        }}
+      />
+
+      <Stack.Screen
+        name="RegisterScreen"
+        component={RegisterScreen}
+        options={{
+          title: 'Register',
         }}
       />
     </Stack.Navigator>
