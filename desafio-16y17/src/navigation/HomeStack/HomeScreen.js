@@ -1,8 +1,9 @@
 import { StyleSheet, Text, View, FlatList, ScrollView } from 'react-native';
 import { useState, useEffect } from 'react';
 
+import { useSelector } from 'react-redux';
+
 import { CATEGORIES } from '../../data/categories';
-import PRODUCTS from '../../data/products';
 
 import SearchInput from '../../components/SearchInput';
 import CategoryButton from '../../components/CategoryButton';
@@ -11,17 +12,17 @@ import ProductCardList from '../../components/ProductCardList';
 import { Colors } from '../../helpers/colors';
 
 const HomeScreen = () => {
+  const { products } = useSelector((state) => state.shopReducer);
   const [userInput, setUserInput] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('pasta');
 
-  const [allProducts, setAllProducts] = useState(PRODUCTS);
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [vegeterianProducts, setVegeterianProducts] = useState([]);
 
   useEffect(() => {
-    const updatedSelectedProducts = allProducts.filter(
+    const updatedSelectedProducts = products.filter(
       (product) => product.categoryId === selectedCategory
     );
     setSelectedProducts(updatedSelectedProducts);
@@ -35,7 +36,7 @@ const HomeScreen = () => {
 
   useEffect(() => {
     setFilteredProducts(
-      allProducts.filter((product) =>
+      products.filter((product) =>
         product.title.toLowerCase().includes(userInput.trim().toLowerCase())
       )
     );
@@ -86,25 +87,27 @@ const HomeScreen = () => {
               showsHorizontalScrollIndicator={false}
             />
           </View>
-          <ScrollView style={styles.lists_container}>
-            {featuredProducts.length > 0 && (
-              <View style={styles.lists}>
-                <Text style={styles.title}>Featured Products</Text>
-                <ProductCardList products={featuredProducts} />
-              </View>
-            )}
-            {selectedProducts.length > 0 && (
-              <View style={styles.lists}>
-                <Text style={styles.title}>All Products</Text>
-                <ProductCardList products={selectedProducts} />
-              </View>
-            )}
-            {vegeterianProducts.length > 0 && (
-              <View style={styles.lists}>
-                <Text style={styles.title}>Vegeterian selection</Text>
-                <ProductCardList products={vegeterianProducts} />
-              </View>
-            )}
+          <ScrollView>
+            <View style={styles.lists_container}>
+              {featuredProducts.length > 0 && (
+                <View style={styles.lists}>
+                  <Text style={styles.title}>Featured Products</Text>
+                  <ProductCardList products={featuredProducts} />
+                </View>
+              )}
+              {selectedProducts.length > 0 && (
+                <View style={styles.lists}>
+                  <Text style={styles.title}>All Products</Text>
+                  <ProductCardList products={selectedProducts} />
+                </View>
+              )}
+              {vegeterianProducts.length > 0 && (
+                <View style={styles.lists}>
+                  <Text style={styles.title}>Vegeterian selection</Text>
+                  <ProductCardList products={vegeterianProducts} />
+                </View>
+              )}
+            </View>
           </ScrollView>
         </>
       )}
@@ -134,9 +137,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   lists_container: {
-    gap: 32,
     paddingTop: 24,
-    marginBottom: 64,
+    paddingBottom: 64,
   },
   lists: {
     marginBottom: 24,

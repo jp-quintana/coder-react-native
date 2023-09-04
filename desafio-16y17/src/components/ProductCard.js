@@ -25,7 +25,11 @@ const ProductCard = ({ id, title, imageUrl, price, isLastElement }) => {
     <View style={[styles.container, lastElementMargin]}>
       <Pressable
         onPress={() => navigation.navigate(...navArgs)}
-        style={styles.button}
+        android_ripple={{ color: '#ccc' }}
+        style={({ pressed }) => [
+          styles.button,
+          pressed ? styles.pressed : undefined,
+        ]}
       >
         <Image source={{ uri: imageUrl }} style={styles.image} />
         <View style={styles.content_container}>
@@ -57,11 +61,12 @@ const styles = StyleSheet.create({
     overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
   },
   button: {
-    borderRadius: 20,
-    overflow: 'hidden',
     flex: 1,
     height: '100%',
     width: '100%',
+  },
+  pressed: {
+    opacity: 0.8,
   },
   image: {
     flex: 0.6,
