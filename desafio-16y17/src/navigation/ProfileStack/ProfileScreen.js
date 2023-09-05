@@ -12,7 +12,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useGetProfileImageQuery } from '../../services/shopServices';
 import { useGetUserLocationQuery } from '../../services/shopServices';
 
-import { setImage, setUserLocation } from '../../features/user/userSlice';
+import {
+  setImage,
+  setUserLocation,
+  logout,
+} from '../../features/user/userSlice';
 
 import { Ionicons } from '@expo/vector-icons';
 
@@ -225,7 +229,7 @@ const ProfileScreen = ({ navigation }) => {
 
             <View style={styles.option}>
               <Pressable
-                onPress={() => {}}
+                onPress={() => dispatch(logout())}
                 android_ripple={{ color: '#ccc' }}
                 style={({ pressed }) => [
                   styles.button,

@@ -23,12 +23,13 @@ export const userSlice = createSlice({
       state.displayName = action.payload.displayName;
     },
     logout: (state) => {
-      state = {
-        email: null,
-        idToken: null,
-        localId: null,
-        profileImage: null,
-      };
+      state.email = null;
+      state.displayName = null;
+      state.idToken = null;
+      state.localId = null;
+      state.profileImage = null;
+      state.location = { latitude: '', longitude: '', address: '' };
+      state.favorites = [];
     },
     setImage: (state, action) => {
       state.profileImage = action.payload;

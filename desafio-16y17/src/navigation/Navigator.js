@@ -22,7 +22,7 @@ const Tab = createBottomTabNavigator();
 const Navigator = () => {
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.shopReducer);
-  const { localId } = useSelector((state) => state.userReducer);
+  const { localId, location } = useSelector((state) => state.userReducer);
 
   const { data: fetchedProducts, isLoading: productsBeingFetched } =
     useGetProductsQuery();
