@@ -36,7 +36,7 @@ const ProductDetailScreen = ({ navigation, route }) => {
 
   return (
     <View style={styles.container}>
-      {!selectedProduct && <Text>Loading...</Text>}
+      {!selectedProduct && <Text style={styles.loading}>Loading...</Text>}
       {selectedProduct && (
         <>
           <Image
@@ -108,5 +108,8 @@ const styles = StyleSheet.create({
     color: Colors.text,
     lineHeight: 28,
     marginBottom: 40,
+  },
+  loading: {
+    textAlign: 'center',
   },
 });

@@ -33,7 +33,9 @@ const OrdersScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      {(!fetchedOrders || isLoading) && <Text>Loading...</Text>}
+      {(!fetchedOrders || isLoading) && (
+        <Text style={styles.loading}>Loading...</Text>
+      )}
       {fetchedOrders && !isLoading && (
         <FlatList
           data={orders}
@@ -58,5 +60,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 12,
+  },
+  loading: {
+    textAlign: 'center',
   },
 });

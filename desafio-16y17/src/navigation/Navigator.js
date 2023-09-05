@@ -38,7 +38,7 @@ const Navigator = () => {
           <AuthStack />
         ) : (
           <>
-            {!products && <Text>Loading...</Text>}
+            {!products && <Text style={styles.loading}>Loading...</Text>}
             {products && (
               <Tab.Navigator
                 screenOptions={{
@@ -148,5 +148,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
+  },
+  loading: {
+    textAlign: 'center',
   },
 });

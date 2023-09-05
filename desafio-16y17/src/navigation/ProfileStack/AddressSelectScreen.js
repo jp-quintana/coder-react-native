@@ -87,7 +87,7 @@ const AddressSelectScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      {isLoading && <Text>Loading...</Text>}
+      {isLoading && <Text style={styles.loading}>Loading...</Text>}
       {!isLoading && (
         <>
           {error && <Text style={styles.error}>{error}</Text>}
@@ -149,5 +149,8 @@ const styles = StyleSheet.create({
   },
   pressed: {
     opacity: 0.8,
+  },
+  loading: {
+    textAlign: 'center',
   },
 });
