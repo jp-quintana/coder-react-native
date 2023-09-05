@@ -3,9 +3,9 @@ import React from 'react';
 
 import { Colors } from '../helpers/colors';
 
-const PrimaryButton = ({ children, isAlt, icon, onPress }) => {
+const PrimaryButton = ({ children, isAlt, isCancel, icon, onPress }) => {
   const buttonBackground = {
-    backgroundColor: isAlt ? 'white' : Colors.primary,
+    backgroundColor: isAlt ? 'white' : isCancel ? Colors.text : Colors.primary,
   };
   const textColor = { color: isAlt ? Colors.primary : 'white' };
   return (

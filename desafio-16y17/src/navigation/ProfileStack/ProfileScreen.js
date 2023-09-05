@@ -6,28 +6,78 @@ import {
   Pressable,
   Platform,
 } from 'react-native';
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useLayoutEffect, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useGetProfileImageQuery } from '../../services/shopServices';
+import { useGetUserLocationQuery } from '../../services/shopServices';
+
+import { setImage, setUserLocation } from '../../features/user/userSlice';
 
 import { Ionicons } from '@expo/vector-icons';
 
 import { Colors } from '../../helpers/colors';
 
 const ProfileScreen = ({ navigation }) => {
-  const { profileImage, displayName, email } = useSelector(
+  const dispatch = useDispatch();
+  const { profileImage, displayName, email, localId, location } = useSelector(
     (state) => state.userReducer
   );
+
+  const { data: image } = useGetProfileImageQuery(localId);
+  const { data: userLocationQuery } = useGetUserLocationQuery(localId);
+
+  const cameraImage = image?.image;
+
+  console.log(userLocationQuery);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => {
+        return (
+          <Pressable onPress={() => navigation.navigate('AddressSelectScreen')}>
+            <Ionicons name="map" size={24} color="black" />
+          </Pressable>
+        );
+      },
+    });
+  }, []);
+
+  useEffect(() => {
+    if (cameraImage) {
+      dispatch(setImage(cameraImage));
+    }
+  }, [cameraImage]);
+
+  useEffect(() => {
+    if (userLocationQuery) {
+      dispatch(setUserLocation(userLocationQuery));
+    }
+  }, [userLocationQuery]);
+
+  console.log('aca', location.address);
+
   return (
     <View style={styles.container}>
       <View style={styles.user_container}>
-        {profileImage ? (
-          <View></View>
-        ) : (
-          <Image
-            source={require('../../assets/images/portrait-placeholder.png')}
-            style={styles.user_image}
-          />
-        )}
+        <View style={styles.image_button_container}>
+          <Pressable
+            onPress={() => navigation.navigate('ImageSelectScreen')}
+            android_ripple={{ color: '#ccc' }}
+            style={({ pressed }) => [pressed ? styles.pressed : undefined]}
+          >
+            {profileImage || cameraImage ? (
+              <Image
+                source={{ uri: profileImage || cameraImage }}
+                style={styles.user_image}
+              />
+            ) : (
+              <Image
+                source={require('../../assets/images/portrait-placeholder.png')}
+                style={styles.user_image}
+              />
+            )}
+          </Pressable>
+        </View>
         <Text style={styles.user_name}>{displayName}</Text>
         <View style={styles.user_content}>
           <View style={styles.user_item}>
@@ -47,7 +97,11 @@ const ProfileScreen = ({ navigation }) => {
               numberOfLines={2}
               ellipsizeMode="tail"
             >
-              Address
+              {location.address
+                ? location.address
+                : userLocationQuery
+                ? userLocationQuery.address
+                : 'No address added yet'}
             </Text>
           </View>
         </View>
@@ -83,10 +137,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     gap: 12,
   },
+
   user_container: {
+    borderRadius: 20,
     alignItems: 'center',
     backgroundColor: '#fff',
-    borderRadius: 20,
     marginVertical: 6,
     paddingVertical: 16,
     paddingHorizontal: 32,
@@ -98,11 +153,14 @@ const styles = StyleSheet.create({
     overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
     marginBottom: 12,
   },
+  image_button_container: {
+    marginBottom: 10,
+    borderRadius: 100,
+    overflow: 'hidden',
+  },
   user_image: {
     height: 75,
     width: 75,
-    marginBottom: 10,
-    borderRadius: 100,
   },
   user_name: {
     fontSize: 18,
@@ -144,5 +202,8 @@ const styles = StyleSheet.create({
   },
   chevron: {
     marginLeft: 'auto',
+  },
+  pressed: {
+    opacity: 0.8,
   },
 });

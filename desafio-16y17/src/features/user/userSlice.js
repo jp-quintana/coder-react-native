@@ -30,16 +30,16 @@ export const userSlice = createSlice({
         profileImage: null,
       };
     },
-    saveImage: (state, action) => {
+    setImage: (state, action) => {
       state.profileImage = action.payload;
     },
     setUserLocation: (state, action) => {
+      console.log('aca', action.payload);
       state.location = action.payload;
     },
   },
 });
 
-export const { setUser, logout, saveImage, setUserLocation } =
-  userSlice.actions;
+export const { setUser, logout, setImage, setUserLocation } = userSlice.actions;
 
 export default userSlice.reducer;
