@@ -6,15 +6,17 @@ import { useNavigation } from '@react-navigation/native';
 import { Colors } from '../helpers/colors';
 import { formatDate, formatPrice } from '../helpers/format';
 
-const OrderItem = ({ id, items, createdAt, total }) => {
+const OrderItem = ({ id, items, createdAt, total, isLastElement }) => {
   const navigation = useNavigation();
   let summaryContent = '';
 
   if (items.length === 1) summaryContent = items[0].title;
   if (items.length > 1) summaryContent = `${items[0].title}, ${items[1].title}`;
 
+  const lastElementMargin = isLastElement ? { marginBottom: 128 } : undefined;
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, lastElementMargin]}>
       <Pressable
         onPress={() => {
           navigation.navigate('OrderDetailScreen', { orderId: id });

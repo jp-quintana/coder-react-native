@@ -39,15 +39,17 @@ const OrdersScreen = ({ navigation }) => {
       {fetchedOrders && !isLoading && (
         <FlatList
           data={orders}
-          renderItem={({ item }) => (
+          renderItem={({ item, index }) => (
             <OrderItem
               id={item.id}
               items={item.items}
               total={item.total}
               createdAt={item.createdAt}
+              isLastElement={index === orders.length - 1}
             />
           )}
           keyExtractor={(item) => item.id}
+          showsVerticalScrollIndicator={false}
         />
       )}
     </View>

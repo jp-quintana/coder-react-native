@@ -6,16 +6,28 @@ import { formatDate, formatPrice } from '../../helpers/format';
 
 import { Colors } from '../../helpers/colors';
 
-const RenderItem = ({ imageUrl, title, quantity }) => (
-  <View style={styles.item_container}>
-    <Image source={{ uri: imageUrl }} style={styles.item_image} />
-    <Text style={styles.item_title} numberOfLines={1} ellipsizeMode="tail">
-      {title}
-    </Text>
-    <Text style={styles.item_quantity}>x {quantity}</Text>
-  </View>
-);
+const RenderItem = ({
+  imageUrl,
+  title,
+  quantity,
+  isFirstElement,
+  isLastElement,
+}) => {
+  const firstElementMargin = isFirstElement ? { marginTop: 12 } : undefined;
+  const lastElementMargin = isLastElement ? { marginBottom: 240 } : undefined;
 
+  return (
+    <View
+      style={[styles.item_container, firstElementMargin, lastElementMargin]}
+    >
+      <Image source={{ uri: imageUrl }} style={styles.item_image} />
+      <Text style={styles.item_title} numberOfLines={1} ellipsizeMode="tail">
+        {title}
+      </Text>
+      <Text style={styles.item_quantity}>x {quantity}</Text>
+    </View>
+  );
+};
 const OrderDetailScreen = ({ route }) => {
   const { orders } = useSelector((state) => state.orderReducer);
   const { orderId } = route.params;
@@ -39,24 +51,27 @@ const OrderDetailScreen = ({ route }) => {
               {formatDate(selectedOrder.createdAt)}
             </Text>
           </View>
-          <View>
-            <FlatList
-              data={selectedOrder.items}
-              renderItem={({ item }) => (
-                <RenderItem
-                  imageUrl={item.imageUrl}
-                  title={item.title}
-                  quantity={item.quantity}
-                />
-              )}
-              keyExtractor={(item) => item.id}
-            />
-          </View>
           <View style={styles.order_price_container}>
             <Text style={styles.order_price_text}>Total:</Text>
             <Text style={styles.order_price}>
               {`$ ${formatPrice(selectedOrder.total)}`}
             </Text>
+          </View>
+          <View>
+            <FlatList
+              data={selectedOrder.items}
+              renderItem={({ item, index }) => (
+                <RenderItem
+                  imageUrl={item.imageUrl}
+                  title={item.title}
+                  quantity={item.quantity}
+                  isFirstElement={index === 0}
+                  isLastElement={index === selectedOrder.items.length - 1}
+                />
+              )}
+              keyExtractor={(item) => item.id}
+              showsVerticalScrollIndicator={false}
+            />
           </View>
         </>
       )}
@@ -74,7 +89,6 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 16,
   },
   title: {
     flexShrink: 1,
@@ -106,11 +120,14 @@ const styles = StyleSheet.create({
   item_quantity: {
     marginLeft: 'auto',
     fontWeight: 'bold',
+    paddingLeft: 6,
   },
   order_price_container: {
-    paddingTop: 12,
+    paddingVertical: 12,
     borderTopColor: Colors.text,
     borderTopWidth: 1,
+    borderBottomColor: Colors.text,
+    borderBottomWidth: 1,
     marginTop: 12,
     textAlign: 'center',
     flexDirection: 'row',

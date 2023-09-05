@@ -16,7 +16,7 @@ import PrimaryButton from '../../components/PrimaryButton';
 
 import { formatPrice } from '../../helpers/format';
 
-const CartScreen = () => {
+const CartScreen = ({ navigation }) => {
   const { items, updatedAt } = useSelector((state) => state.cartReducer);
   const { email } = useSelector((state) => state.userReducer);
 
@@ -49,6 +49,7 @@ const CartScreen = () => {
         createdAt: updatedAt,
       });
       dispatch(clearCart());
+      navigation.navigate('Profile', { screen: 'OrderScreen' });
     } catch (error) {
       console.log(error);
     }
