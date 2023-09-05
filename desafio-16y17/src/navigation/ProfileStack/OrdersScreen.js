@@ -1,30 +1,62 @@
-import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { useEffect } from 'react';
 
-// import { useDispatch, useSelector } from 'react-redux';
-// import { useGetOrdersByUserIdQuery } from '../../services/shopServices';
+import { useDispatch, useSelector } from 'react-redux';
+import { useGetOrdersByUserQuery } from '../../services/shopServices';
+import { setOrders } from '../../features/order/orderSlice';
 
-const OrdersScreen = () => {
-  // const { email } = useSelector((state) => state.userReducer);
+import OrderItem from '../../components/OrderItem';
 
-  // const { data: orders, isLoading, refetch } = useGetOrdersByUserQuery(email);
+const OrdersScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const { email } = useSelector((state) => state.userReducer);
+  const { orders } = useSelector((state) => state.orderReducer);
 
-  // // TODO: Update
-  // useEffect(() => {
-  //   const unsubscribe = navigation.addListener('focus', () => {
-  //     refetch();
-  //   });
+  const {
+    data: fetchedOrders,
+    isLoading,
+    refetch,
+  } = useGetOrdersByUserQuery(email);
 
-  //   return unsubscribe;
-  // }, [navigation]);
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      refetch();
+    });
+    return unsubscribe;
+  }, [navigation]);
+
+  useEffect(() => {
+    if (fetchedOrders && !isLoading) {
+      dispatch(setOrders(fetchedOrders));
+      console.log(fetchedOrders);
+    }
+  }, [fetchedOrders]);
 
   return (
-    <View>
-      <Text>OrdersScreen</Text>
+    <View style={styles.container}>
+      {(!fetchedOrders || isLoading) && <Text>Loading...</Text>}
+      {fetchedOrders && !isLoading && (
+        <FlatList
+          data={orders}
+          renderItem={({ item }) => (
+            <OrderItem
+              id={item.id}
+              items={item.items}
+              total={item.total}
+              createdAt={item.createdAt}
+            />
+          )}
+          keyExtractor={(item) => item.id}
+        />
+      )}
     </View>
   );
 };
 
 export default OrdersScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});

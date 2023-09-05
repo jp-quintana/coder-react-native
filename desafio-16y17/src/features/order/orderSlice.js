@@ -6,12 +6,12 @@ export const orderSlice = createSlice({
     orders: [],
   },
   reducers: {
-    create: (state, action) => {
-      state.orders.unshift(action.payload);
+    setOrders: (state, action) => {
+      state.orders = action.payload;
     },
   },
 });
 
-export const { create } = orderSlice.actions;
+export const { setOrders } = orderSlice.actions;
 
 export default orderSlice.reducer;

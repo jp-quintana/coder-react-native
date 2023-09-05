@@ -27,9 +27,19 @@ export const shopApi = createApi({
     //   },
     // }),
     getOrdersByUser: builder.query({
-      query: (user) => `orders.json?orderBy="user"&equalTo="${user}"`,
+      query: (user) =>
+        `orders.json?orderBy="user"&equalTo="${user}"&orderBy="createdAt"`,
       transformResponse: (response) => {
-        const ordersTransformed = Object.values(response);
+        // const ordersTransformed = Object.values(response);
+        // return ordersTransformed;
+
+        // Convert the response to an array of orders with IDs
+        const ordersTransformed = Object.entries(response).map(
+          ([orderId, orderData]) => ({
+            id: orderId, // Include the order ID
+            ...orderData, // Include the order data
+          })
+        );
         return ordersTransformed;
       },
     }),
