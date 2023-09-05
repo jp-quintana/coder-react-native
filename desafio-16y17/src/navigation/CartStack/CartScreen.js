@@ -49,7 +49,6 @@ const CartScreen = () => {
         createdAt: updatedAt,
       });
       dispatch(clearCart());
-      // navigate('OrdersStack');
     } catch (error) {
       console.log(error);
     }

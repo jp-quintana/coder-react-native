@@ -28,8 +28,6 @@ const ProfileScreen = ({ navigation }) => {
 
   const cameraImage = image?.image;
 
-  console.log(userLocationQuery);
-
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => {
@@ -53,8 +51,6 @@ const ProfileScreen = ({ navigation }) => {
       dispatch(setUserLocation(userLocationQuery));
     }
   }, [userLocationQuery]);
-
-  console.log('aca', location.address);
 
   return (
     <View style={styles.container}>

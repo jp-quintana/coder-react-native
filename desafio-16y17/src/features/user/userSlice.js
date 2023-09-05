@@ -34,7 +34,6 @@ export const userSlice = createSlice({
       state.profileImage = action.payload;
     },
     setUserLocation: (state, action) => {
-      console.log('aca', action.payload);
       state.location = action.payload;
     },
   },

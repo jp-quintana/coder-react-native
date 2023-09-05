@@ -33,8 +33,6 @@ const AddressSelectScreen = ({ navigation }) => {
       address,
     };
 
-    console.log(locationFormatted);
-
     dispatch(setUserLocation(locationFormatted));
 
     triggerPostUserLocation({

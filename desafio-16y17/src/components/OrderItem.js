@@ -12,7 +12,7 @@ const OrderItem = ({ id, items, createdAt }) => {
 
   return (
     <View style={styles.container}>
-      <Pressable onPress={() => console.log()}>
+      <Pressable onPress={() => {}}>
         <View style={styles.content}>
           <View style={styles.header}>
             <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
