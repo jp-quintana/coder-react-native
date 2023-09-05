@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import ProfileScreen from './ProfileScreen';
 import OrdersScreen from './OrdersScreen';
+import OrderDetailScreen from './OrderDetailScreen';
 import ImageSelectScreen from './ImageSelectScreen';
 import AddressSelectScreen from './AddressSelectScreen';
 
@@ -38,6 +39,11 @@ const ProfileStack = () => {
         name="OrdersScreen"
         component={OrdersScreen}
         options={{ title: 'Orders' }}
+      />
+      <Stack.Screen
+        name="OrderDetailScreen"
+        component={OrderDetailScreen}
+        options={{ title: 'Order summary' }}
       />
       <Stack.Screen
         name="ImageSelectScreen"

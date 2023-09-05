@@ -125,7 +125,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     marginBottom: 12,
   },
-  categories_container: {},
   title: {
     paddingHorizontal: 16,
     fontSize: 18,
