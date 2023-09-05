@@ -27,8 +27,8 @@ const AuthInput = ({ secureTextEntry, placeholder, onChangeText, value }) => {
       />
       {secureTextEntry && (
         <Pressable onPress={() => setIsSecure((prevState) => !prevState)}>
-          {isSecure && <Ionicons name="eye" size={24} color="black" />}
-          {!isSecure && <Ionicons name="eye-off" size={24} color="black" />}
+          {isSecure && <Ionicons name="eye" size={20} color="black" />}
+          {!isSecure && <Ionicons name="eye-off" size={20} color="black" />}
         </Pressable>
       )}
     </View>
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 18,
     paddingVertical: 12,
-    paddingHorizontal: 24,
+    paddingHorizontal: 18,
     // marginVertical: 6,
     elevation: 4,
     shadowColor: '#000',

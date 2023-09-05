@@ -5,8 +5,9 @@ import {
   Image,
   Pressable,
   Platform,
+  Modal,
 } from 'react-native';
-import React, { useLayoutEffect, useEffect } from 'react';
+import React, { useState, useLayoutEffect, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useGetProfileImageQuery } from '../../services/shopServices';
 import { useGetUserLocationQuery } from '../../services/shopServices';
@@ -23,6 +24,8 @@ const ProfileScreen = ({ navigation }) => {
     (state) => state.userReducer
   );
 
+  const [modalVisible, setModalVisible] = useState(false);
+
   const { data: userImageQueryObject, isLoading: imageIsLoading } =
     useGetProfileImageQuery(localId);
   const { data: userLocationQuery, isLoading: locationIsLoading } =
@@ -34,8 +37,8 @@ const ProfileScreen = ({ navigation }) => {
     navigation.setOptions({
       headerRight: () => {
         return (
-          <Pressable onPress={() => navigation.navigate('AddressSelectScreen')}>
-            <Ionicons name="map" size={24} color="black" />
+          <Pressable onPress={() => setModalVisible(true)}>
+            <Ionicons name="options" size={24} color="black" />
           </Pressable>
         );
       },
@@ -54,88 +57,192 @@ const ProfileScreen = ({ navigation }) => {
     }
   }, [userLocationQuery]);
 
-  console.log('acaaaaa', imageIsLoading, locationIsLoading);
+  const handleNavigateToImageSelect = () => {
+    if (modalVisible) {
+      setModalVisible(false);
+    }
+    navigation.navigate('ImageSelectScreen');
+  };
 
   return (
-    <View style={styles.container}>
-      {(imageIsLoading || locationIsLoading) && (
-        <Text style={styles.loading}>Loading...</Text>
-      )}
-      {!imageIsLoading && !locationIsLoading && (
-        <>
-          <View style={styles.user_container}>
-            <View style={styles.image_button_container}>
-              <Pressable
-                onPress={() => navigation.navigate('ImageSelectScreen')}
-                android_ripple={{ color: '#ccc' }}
-                style={({ pressed }) => [pressed ? styles.pressed : undefined]}
+    <View style={styles.screen}>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(false);
+        }}
+      >
+        <Pressable
+          onPress={() => setModalVisible(false)}
+          style={styles.backdrop}
+        ></Pressable>
+        <View style={styles.modalView}>
+          <View style={styles.image_button_container}>
+            <Pressable
+              onPress={handleNavigateToImageSelect}
+              android_ripple={{ color: '#ccc' }}
+              style={({ pressed }) => [pressed ? styles.pressed : undefined]}
+            >
+              {userImageQuery || profileImage ? (
+                <Image
+                  source={{ uri: profileImage || userImageQuery }}
+                  style={styles.user_image}
+                />
+              ) : (
+                <Image
+                  source={require('../../assets/images/portrait-placeholder.png')}
+                  style={styles.user_image}
+                />
+              )}
+            </Pressable>
+          </View>
+          <Text style={styles.user_name}>{displayName}</Text>
+          <View style={styles.user_content}>
+            <View style={styles.user_item}>
+              <Ionicons name="mail-outline" size={24} color={Colors.text} />
+              <Text
+                style={styles.user_item_text}
+                numberOfLines={1}
+                ellipsizeMode="tail"
               >
-                {userImageQuery || profileImage ? (
-                  <Image
-                    source={{ uri: profileImage || userImageQuery }}
-                    style={styles.user_image}
-                  />
-                ) : (
-                  <Image
-                    source={require('../../assets/images/portrait-placeholder.png')}
-                    style={styles.user_image}
-                  />
-                )}
+                {email}
+              </Text>
+            </View>
+            <View style={styles.user_item}>
+              <Ionicons name="location-outline" size={24} color={Colors.text} />
+              <Text
+                style={[styles.user_item_text, { flexShrink: 1 }]}
+                numberOfLines={1}
+                ellipsizeMode="tail"
+              >
+                {location.address
+                  ? location.address
+                  : userLocationQuery
+                  ? userLocationQuery.address
+                  : 'No address added yet'}
+              </Text>
+              <Pressable
+                onPress={() => {
+                  setModalVisible(false);
+                  navigation.navigate('AddressSelectScreen');
+                }}
+              >
+                <Ionicons
+                  name="md-pencil-sharp"
+                  size={24}
+                  color={Colors.primary}
+                />
               </Pressable>
             </View>
-            <Text style={styles.user_name}>{displayName}</Text>
-            <View style={styles.user_content}>
-              <View style={styles.user_item}>
-                <Ionicons name="mail-outline" size={24} color={Colors.text} />
-                <Text
-                  style={styles.user_item_text}
-                  numberOfLines={1}
-                  ellipsizeMode="tail"
+          </View>
+        </View>
+      </Modal>
+      <View style={styles.container}>
+        {(imageIsLoading || locationIsLoading) && (
+          <Text style={styles.loading}>Loading...</Text>
+        )}
+        {!imageIsLoading && !locationIsLoading && (
+          <>
+            <View style={styles.user_container}>
+              <View style={styles.image_button_container}>
+                <Pressable
+                  onPress={handleNavigateToImageSelect}
+                  android_ripple={{ color: '#ccc' }}
+                  style={({ pressed }) => [
+                    pressed ? styles.pressed : undefined,
+                  ]}
                 >
-                  {email}
-                </Text>
+                  {userImageQuery || profileImage ? (
+                    <Image
+                      source={{ uri: profileImage || userImageQuery }}
+                      style={styles.user_image}
+                    />
+                  ) : (
+                    <Image
+                      source={require('../../assets/images/portrait-placeholder.png')}
+                      style={styles.user_image}
+                    />
+                  )}
+                </Pressable>
               </View>
-              <View style={styles.user_item}>
+              <Text style={styles.user_name}>{displayName}</Text>
+              <View style={styles.user_content}>
+                <View style={styles.user_item}>
+                  <Ionicons name="mail-outline" size={24} color={Colors.text} />
+                  <Text
+                    style={styles.user_item_text}
+                    numberOfLines={1}
+                    ellipsizeMode="tail"
+                  >
+                    {email}
+                  </Text>
+                </View>
+                <View style={styles.user_item}>
+                  <Ionicons
+                    name="location-outline"
+                    size={24}
+                    color={Colors.text}
+                  />
+                  <Text
+                    style={styles.user_item_text}
+                    numberOfLines={2}
+                    ellipsizeMode="tail"
+                  >
+                    {location.address
+                      ? location.address
+                      : userLocationQuery
+                      ? userLocationQuery.address
+                      : 'No address added yet'}
+                  </Text>
+                </View>
+              </View>
+            </View>
+            <View style={styles.option}>
+              <Pressable
+                onPress={() => navigation.navigate('OrdersScreen')}
+                android_ripple={{ color: '#ccc' }}
+                style={({ pressed }) => [
+                  styles.button,
+                  pressed ? styles.pressed : undefined,
+                ]}
+              >
                 <Ionicons
-                  name="location-outline"
+                  name="receipt-outline"
                   size={24}
                   color={Colors.text}
                 />
-                <Text
-                  style={styles.user_item_text}
-                  numberOfLines={2}
-                  ellipsizeMode="tail"
-                >
-                  {location.address
-                    ? location.address
-                    : userLocationQuery
-                    ? userLocationQuery.address
-                    : 'No address added yet'}
-                </Text>
-              </View>
+                <Text style={styles.option_text}>Orders</Text>
+                <Ionicons
+                  name="ios-chevron-forward"
+                  size={24}
+                  color={Colors.text}
+                  style={styles.chevron}
+                />
+              </Pressable>
             </View>
-          </View>
-          <View style={styles.option}>
-            <Pressable
-              onPress={() => navigation.navigate('OrdersScreen')}
-              android_ripple={{ color: '#ccc' }}
-              style={({ pressed }) => [
-                styles.button,
-                pressed ? styles.pressed : undefined,
-              ]}
-            >
-              <Ionicons name="receipt-outline" size={24} color={Colors.text} />
-              <Text style={styles.option_text}>Orders</Text>
-              <Ionicons
-                name="ios-chevron-forward"
-                size={24}
-                color={Colors.text}
-                style={styles.chevron}
-              />
-            </Pressable>
-          </View>
-        </>
-      )}
+
+            <View style={styles.option}>
+              <Pressable
+                onPress={() => {}}
+                android_ripple={{ color: '#ccc' }}
+                style={({ pressed }) => [
+                  styles.button,
+                  pressed ? styles.pressed : undefined,
+                ]}
+              >
+                <Ionicons
+                  name="log-out-outline"
+                  size={24}
+                  color={Colors.text}
+                />
+                <Text style={styles.option_text}>Logout</Text>
+              </Pressable>
+            </View>
+          </>
+        )}
+      </View>
     </View>
   );
 };
@@ -143,12 +250,42 @@ const ProfileScreen = ({ navigation }) => {
 export default ProfileScreen;
 
 const styles = StyleSheet.create({
+  screen: {
+    position: 'relative',
+    flex: 1,
+  },
+  backdrop: {
+    position: 'absolute',
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0,
+    zIndex: -1,
+  },
+  modalView: {
+    marginTop: 42,
+    marginHorizontal: 16,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    paddingVertical: 16,
+    paddingHorizontal: 32,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
   container: {
     flex: 1,
     paddingHorizontal: 16,
     gap: 12,
+    position: 'relative',
   },
-
   user_container: {
     borderRadius: 20,
     alignItems: 'center',
@@ -187,6 +324,7 @@ const styles = StyleSheet.create({
     gap: 16,
     alignItems: 'center',
     marginBottom: 6,
+    width: '100%',
   },
   user_item_text: {
     color: Colors.text,
