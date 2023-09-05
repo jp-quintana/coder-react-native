@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, Platform, Pressable } from 'react-native';
 import React from 'react';
 
+import { Colors } from '../helpers/colors';
 import { formatDate } from '../helpers/format';
 
 const OrderItem = ({ id, items, createdAt }) => {
@@ -12,15 +13,17 @@ const OrderItem = ({ id, items, createdAt }) => {
   return (
     <View style={styles.container}>
       <Pressable onPress={() => console.log()}>
-        <View style={styles.header}>
-          <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
-            {`Order ${id}`}
+        <View style={styles.content}>
+          <View style={styles.header}>
+            <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
+              {`Order ${id}`}
+            </Text>
+            <Text style={styles.createdAt}>{formatDate(createdAt)}</Text>
+          </View>
+          <Text style={styles.summary} numberOfLines={1} ellipsizeMode="tail">
+            {summaryContent}
           </Text>
-          <Text style={styles.createdAT}>{formatDate(createdAt)}</Text>
         </View>
-        <Text style={styles.summary} numberOfLines={1} ellipsizeMode="tail">
-          {summaryContent}
-        </Text>
       </Pressable>
     </View>
   );
@@ -40,5 +43,23 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 8,
     overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
+  },
+  content: {
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 6,
+  },
+  title: {
+    fontWeight: 'bold',
+  },
+  summary: {
+    fontWeight: 'bold',
+    color: Colors.text,
+    textTransform: 'capitalize',
   },
 });

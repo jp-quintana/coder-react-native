@@ -37,10 +37,7 @@ const LoginScreen = ({ navigation }) => {
       setAuthError(
         'Sorry, your email or password is incorrect. Please try again.'
       );
-      setUserInput({
-        email: '',
-        password: '',
-      });
+      setUserInput((prevState) => ({ ...prevState, password: '' }));
     }
 
     return () => setAuthError(null);
