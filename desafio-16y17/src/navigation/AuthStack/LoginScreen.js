@@ -1,19 +1,83 @@
 import { StyleSheet, Text, View, Pressable } from 'react-native';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+import { useDispatch } from 'react-redux';
+import { useSignInMutation } from '../../services/authServices';
+import { setUser } from '../../features/user/userSlice';
 
 import AuthInput from '../../components/AuthInput';
 import PrimaryButton from '../../components/PrimaryButton';
 
 import { Colors } from '../../helpers/colors';
+import { validateEmail } from '../../helpers/validation';
 
 const LoginScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const [triggerSignIn, result] = useSignInMutation();
+
   const [userInput, setUserInput] = useState({
     email: '',
     password: '',
   });
+  const [authError, setAuthError] = useState(null);
+
+  useEffect(() => {
+    if (result.isSuccess) {
+      dispatch(
+        setUser({
+          email: result.data.email,
+          idToken: result.data.idToken,
+          localId: result.data.localId,
+          displayName: result.data.displayName,
+        })
+      );
+    }
+
+    if (result?.isError) {
+      setAuthError(
+        'Sorry, your email or password is incorrect. Please try again.'
+      );
+      setUserInput({
+        email: '',
+        password: '',
+      });
+    }
+
+    return () => setAuthError(null);
+  }, [result]);
 
   const handleInput = ({ name, text }) => {
     setUserInput((prevState) => ({ ...prevState, [name]: text }));
+  };
+
+  const handleSubmit = () => {
+    setAuthError(null);
+    try {
+      if (!userInput.email) throw new Error('Email is required!');
+      if (!userInput.password) throw new Error('Password is required!');
+      const emailIsValid = validateEmail(userInput.email);
+      if (!emailIsValid)
+        throw new Error('Sorry, your email is incorrect. Please try again.');
+
+      const request = {
+        email: userInput.email,
+        password: userInput.password,
+        returnSecureToken: true,
+      };
+
+      triggerSignIn(request);
+    } catch (err) {
+      setAuthError(err.message);
+    }
+  };
+
+  const handleNavigation = () => {
+    // setUserInput({
+    //   email: '',
+    //   password: '',
+    // });
+    setAuthError(null);
+    navigation.navigate('RegisterScreen');
   };
 
   return (
@@ -33,11 +97,12 @@ const LoginScreen = ({ navigation }) => {
         />
       </View>
       <View style={styles.submit_button}>
-        <PrimaryButton>Login</PrimaryButton>
+        <PrimaryButton onPress={handleSubmit}>Login</PrimaryButton>
       </View>
+      {authError && <Text style={styles.auth_error}>{authError}</Text>}
       <View style={styles.switch_container}>
         <Text>No account yet? </Text>
-        <Pressable onPress={() => navigation.navigate('RegisterScreen')}>
+        <Pressable onPress={handleNavigation}>
           <Text style={styles.switch_button_text}>Register now!</Text>
         </Pressable>
       </View>
@@ -70,5 +135,11 @@ const styles = StyleSheet.create({
   },
   switch_button_text: {
     color: Colors.primary,
+  },
+  auth_error: {
+    color: Colors.error,
+    textAlign: 'center',
+    marginHorizontal: 24,
+    marginBottom: 24,
   },
 });

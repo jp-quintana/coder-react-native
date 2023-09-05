@@ -14,7 +14,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../../helpers/colors';
 
 const ProfileScreen = ({ navigation }) => {
-  const { profileImage, displayName } = useSelector(
+  const { profileImage, displayName, email } = useSelector(
     (state) => state.userReducer
   );
   return (
@@ -32,11 +32,23 @@ const ProfileScreen = ({ navigation }) => {
         <View style={styles.user_content}>
           <View style={styles.user_item}>
             <Ionicons name="mail-outline" size={24} color={Colors.text} />
-            <Text style={styles.user_item_text}>Mail</Text>
+            <Text
+              style={styles.user_item_text}
+              numberOfLines={1}
+              ellipsizeMode="tail"
+            >
+              {email}
+            </Text>
           </View>
           <View style={styles.user_item}>
             <Ionicons name="location-outline" size={24} color={Colors.text} />
-            <Text style={styles.user_item_text}>Address</Text>
+            <Text
+              style={styles.user_item_text}
+              numberOfLines={2}
+              ellipsizeMode="tail"
+            >
+              Address
+            </Text>
           </View>
         </View>
       </View>

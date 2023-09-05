@@ -79,7 +79,6 @@ const RegisterScreen = ({ navigation }) => {
       const request = {
         email: userInput.email,
         password: userInput.password,
-        displayName: userInput.displayName,
         returnSecureToken: true,
       };
 

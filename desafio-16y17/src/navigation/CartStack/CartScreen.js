@@ -2,10 +2,14 @@ import { StyleSheet, Text, View, FlatList } from 'react-native';
 import React from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
+import { usePostCartMutation } from '../../services/shopServices';
 
-import { addItem, deleteItem, removeItem } from '../../features/cart/cartSlice';
-
-// import { useCart } from '../../hooks/useCart';
+import {
+  addItem,
+  deleteItem,
+  removeItem,
+  clearCart,
+} from '../../features/cart/cartSlice';
 
 import CartItem from '../../components/CartItem';
 import PrimaryButton from '../../components/PrimaryButton';
@@ -13,8 +17,12 @@ import PrimaryButton from '../../components/PrimaryButton';
 import { formatPrice } from '../../helpers/format';
 
 const CartScreen = () => {
-  const { items } = useSelector((state) => state.cartReducer);
+  const { items, updatedAt } = useSelector((state) => state.cartReducer);
+  const { email } = useSelector((state) => state.userReducer);
+
   const dispatch = useDispatch();
+
+  const [triggerPostCart] = usePostCartMutation();
 
   const handleAddItem = (itemToAdd) => {
     dispatch(addItem({ itemToAdd }));
@@ -32,6 +40,21 @@ const CartScreen = () => {
     return (totalPrice += item.quantity * item.price);
   }, 0);
 
+  const handleSubmit = async () => {
+    try {
+      await triggerPostCart({
+        user: email,
+        items,
+        total: totalPrice,
+        createdAt: updatedAt,
+      });
+      dispatch(clearCart());
+      // navigate('OrdersStack');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       {items.length === 0 && (
@@ -46,7 +69,7 @@ const CartScreen = () => {
                 totalPrice
               )}`}</Text>
             </View>
-            <PrimaryButton>Confirm Order</PrimaryButton>
+            <PrimaryButton onPress={handleSubmit}>Confirm Order</PrimaryButton>
           </View>
           <View>
             <View style={styles.list_container}>
