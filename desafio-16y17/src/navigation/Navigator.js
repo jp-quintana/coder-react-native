@@ -6,6 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { useGetProductsQuery } from '../services/shopServices';
+
 import { setProducts } from '../features/shop/shopSlice';
 
 import AuthStack from './AuthStack';
@@ -22,7 +23,7 @@ const Tab = createBottomTabNavigator();
 const Navigator = () => {
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.shopReducer);
-  const { localId, location } = useSelector((state) => state.userReducer);
+  const { localId } = useSelector((state) => state.userReducer);
 
   const { data: fetchedProducts, isLoading: productsBeingFetched } =
     useGetProductsQuery();

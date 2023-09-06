@@ -80,6 +80,7 @@ const RegisterScreen = ({ navigation }) => {
         email: userInput.email,
         password: userInput.password,
         returnSecureToken: true,
+        displayName: userInput.displayName,
       };
 
       triggerSignUp(request);

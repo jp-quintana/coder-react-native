@@ -5,7 +5,7 @@ import * as ImagePicker from 'expo-image-picker';
 import * as MediaLibrary from 'expo-media-library';
 
 import { usePostProfileImageMutation } from '../../services/shopServices';
-import { setImage } from '../../features/user/userSlice';
+import { setProfileImage } from '../../features/user/userSlice';
 
 import PrimaryButton from '../../components/PrimaryButton';
 
@@ -54,7 +54,7 @@ const ImageSelectScreen = ({ navigation }) => {
             image: response.uri,
             localId,
           });
-          dispatch(setImage(response.uri));
+          dispatch(setProfileImage(response.uri));
         }
       } catch (error) {
         console.log(error);

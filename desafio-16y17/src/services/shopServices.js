@@ -46,6 +46,22 @@ export const shopApi = createApi({
         body: order,
       }),
     }),
+    getFavorites: builder.query({
+      query: (localId) => `favorites/${localId}.json`,
+      transformResponse: (response) => {
+        console.log('IS RUNNING');
+        return response?.favorites;
+      },
+    }),
+    postFavorites: builder.mutation({
+      query: ({ favorites, localId }) => ({
+        url: `favorites/${localId}.json`,
+        method: 'PUT',
+        body: {
+          favorites,
+        },
+      }),
+    }),
     getProfileImage: builder.query({
       query: (localId) => `profileImages/${localId}.json`,
     }),
@@ -82,6 +98,8 @@ export const {
   // useGetProductByIdQuery,
   useGetOrdersByUserQuery,
   usePostCartMutation,
+  useGetFavoritesQuery,
+  usePostFavoritesMutation,
   useGetProfileImageQuery,
   usePostProfileImageMutation,
   useGetUserLocationQuery,

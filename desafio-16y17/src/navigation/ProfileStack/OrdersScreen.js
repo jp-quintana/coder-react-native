@@ -37,20 +37,27 @@ const OrdersScreen = ({ navigation }) => {
         <Text style={styles.loading}>Loading...</Text>
       )}
       {fetchedOrders && !isLoading && (
-        <FlatList
-          data={orders}
-          renderItem={({ item, index }) => (
-            <OrderItem
-              id={item.id}
-              items={item.items}
-              total={item.total}
-              createdAt={item.createdAt}
-              isLastElement={index === orders.length - 1}
+        <>
+          {orders.length === 0 && (
+            <Text style={styles.no_orders}>You have no orders yet!</Text>
+          )}
+          {orders.length > 0 && (
+            <FlatList
+              data={orders}
+              renderItem={({ item, index }) => (
+                <OrderItem
+                  id={item.id}
+                  items={item.items}
+                  total={item.total}
+                  createdAt={item.createdAt}
+                  isLastElement={index === orders.length - 1}
+                />
+              )}
+              keyExtractor={(item) => item.id}
+              showsVerticalScrollIndicator={false}
             />
           )}
-          keyExtractor={(item) => item.id}
-          showsVerticalScrollIndicator={false}
-        />
+        </>
       )}
     </View>
   );
@@ -64,6 +71,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   loading: {
+    textAlign: 'center',
+  },
+  no_orders: {
     textAlign: 'center',
   },
 });

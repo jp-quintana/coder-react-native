@@ -1,8 +1,27 @@
-import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
-import { useState, useLayoutEffect, useEffect } from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ScrollView,
+  Pressable,
+  ActivityIndicator,
+} from 'react-native';
+import { useState, useLayoutEffect } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
+import { Ionicons } from '@expo/vector-icons';
+
+import {
+  useGetFavoritesQuery,
+  usePostFavoritesMutation,
+} from '../../services/shopServices';
+
 import { addItem } from '../../features/cart/cartSlice';
+import {
+  favoriteProduct,
+  unfavoriteProduct,
+} from '../../features/user/userSlice';
 
 import PrimaryButon from '../../components/PrimaryButton';
 
@@ -10,12 +29,42 @@ import { Colors } from '../../helpers/colors';
 import { formatPrice } from '../../helpers/format';
 
 const ProductDetailScreen = ({ navigation, route }) => {
+  const { favorites, localId } = useSelector((state) => state.userReducer);
   const { products } = useSelector((state) => state.shopReducer);
   const dispatch = useDispatch();
 
   const { selectedProductId } = route.params;
 
   const [selectedProduct, setSelectedProduct] = useState(null);
+
+  // const { data: fetchedFavorites, isLoading: favoritedBeingFetched } =
+  //   useGetFavoritesQuery(localId);
+
+  [triggerFavorite, { isLoading: favoriteIsLoading }] =
+    usePostFavoritesMutation();
+
+  const handleAddItem = () => {
+    dispatch(addItem({ itemToAdd: selectedProduct }));
+    navigation.navigate('Cart');
+  };
+
+  const handleFavorite = async (isFavorite) => {
+    try {
+      if (isFavorite) {
+        const updatedFavorites = favorites.filter(
+          (favorite) => favorite !== selectedProductId
+        );
+        await triggerFavorite({ favorites: updatedFavorites, localId });
+        dispatch(unfavoriteProduct(selectedProductId));
+      } else {
+        const updatedFavorites = [...favorites, selectedProductId];
+        await triggerFavorite({ favorites: updatedFavorites, localId });
+        dispatch(favoriteProduct(selectedProductId));
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useLayoutEffect(() => {
     const selected = products.find(
@@ -29,10 +78,29 @@ const ProductDetailScreen = ({ navigation, route }) => {
     setSelectedProduct(selected);
   }, []);
 
-  const handleAddItem = () => {
-    dispatch(addItem({ itemToAdd: selectedProduct }));
-    navigation.navigate('Cart');
-  };
+  useLayoutEffect(() => {
+    const isFavorite = favorites.includes(selectedProductId);
+    navigation.setOptions({
+      headerRight: () => {
+        return (
+          <>
+            {favoriteIsLoading && (
+              <ActivityIndicator size="small" color={Colors.text} />
+            )}
+            {!favoriteIsLoading && (
+              <Pressable onPress={() => handleFavorite(isFavorite)}>
+                <Ionicons
+                  name={isFavorite ? 'heart' : 'heart-outline'}
+                  size={24}
+                  color={isFavorite ? Colors.primary : Colors.text}
+                />
+              </Pressable>
+            )}
+          </>
+        );
+      },
+    });
+  }, [favorites, favoriteIsLoading]);
 
   return (
     <View style={styles.container}>

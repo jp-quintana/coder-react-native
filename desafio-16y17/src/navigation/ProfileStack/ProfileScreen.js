@@ -13,7 +13,7 @@ import { useGetProfileImageQuery } from '../../services/shopServices';
 import { useGetUserLocationQuery } from '../../services/shopServices';
 
 import {
-  setImage,
+  setProfileImage,
   setUserLocation,
   logout,
 } from '../../features/user/userSlice';
@@ -51,7 +51,7 @@ const ProfileScreen = ({ navigation }) => {
 
   useEffect(() => {
     if (userImageQuery) {
-      dispatch(setImage(userImageQuery));
+      dispatch(setProfileImage(userImageQuery));
     }
   }, [userImageQuery]);
 

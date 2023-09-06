@@ -31,15 +31,33 @@ export const userSlice = createSlice({
       state.location = { latitude: '', longitude: '', address: '' };
       state.favorites = [];
     },
-    setImage: (state, action) => {
+    setProfileImage: (state, action) => {
       state.profileImage = action.payload;
     },
     setUserLocation: (state, action) => {
       state.location = action.payload;
     },
+    setFavorites: (state, action) => {
+      state.favorites = action.payload;
+    },
+    favoriteProduct: (state, action) => {
+      state.favorites = [...state.favorites, action.payload];
+    },
+    unfavoriteProduct: (state, action) => {
+      state.favorites = state.favorites.filter(
+        (favorite) => favorite !== action.payload
+      );
+    },
   },
 });
 
-export const { setUser, logout, setImage, setUserLocation } = userSlice.actions;
+export const {
+  setUser,
+  logout,
+  setProfileImage,
+  setUserLocation,
+  favoriteProduct,
+  unfavoriteProduct,
+} = userSlice.actions;
 
 export default userSlice.reducer;
