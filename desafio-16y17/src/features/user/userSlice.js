@@ -56,6 +56,7 @@ export const {
   logout,
   setProfileImage,
   setUserLocation,
+  setFavorites,
   favoriteProduct,
   unfavoriteProduct,
 } = userSlice.actions;

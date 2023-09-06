@@ -5,9 +5,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { useGetProductsQuery } from '../services/shopServices';
+import {
+  useGetProductsQuery,
+  useGetFavoritesQuery,
+} from '../services/shopServices';
 
 import { setProducts } from '../features/shop/shopSlice';
+import { setFavorites } from '../features/user/userSlice';
 
 import AuthStack from './AuthStack';
 import HomeStack from './HomeStack';
@@ -23,17 +27,23 @@ const Tab = createBottomTabNavigator();
 const Navigator = () => {
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.shopReducer);
-  const { localId } = useSelector((state) => state.userReducer);
-  const { orders } = useSelector((state) => state.orderReducer);
+  const { localId, favorites } = useSelector((state) => state.userReducer);
 
   const { data: fetchedProducts, isLoading: productsBeingFetched } =
     useGetProductsQuery();
+
+  const { data: fetchedFavorites, isLoading: favoritedBeingFetched } =
+    useGetFavoritesQuery(localId);
 
   useEffect(() => {
     if (fetchedProducts?.length > 0) dispatch(setProducts(fetchedProducts));
   }, [productsBeingFetched]);
 
-  console.log(orders);
+  useEffect(() => {
+    if (fetchedProducts) dispatch(setFavorites(fetchedFavorites));
+  }, [favoritedBeingFetched]);
+
+  console.log(favorites);
 
   return (
     <NavigationContainer>

@@ -12,10 +12,7 @@ import { useState, useLayoutEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 
-import {
-  useGetFavoritesQuery,
-  usePostFavoritesMutation,
-} from '../../services/shopServices';
+import { usePostFavoritesMutation } from '../../services/shopServices';
 
 import { addItem } from '../../features/cart/cartSlice';
 import {
@@ -37,9 +34,6 @@ const ProductDetailScreen = ({ navigation, route }) => {
 
   const [selectedProduct, setSelectedProduct] = useState(null);
 
-  // const { data: fetchedFavorites, isLoading: favoritedBeingFetched } =
-  //   useGetFavoritesQuery(localId);
-
   [triggerFavorite, { isLoading: favoriteIsLoading }] =
     usePostFavoritesMutation();
 
@@ -48,19 +42,41 @@ const ProductDetailScreen = ({ navigation, route }) => {
     navigation.navigate('Cart');
   };
 
+  // const handleFavorite = async (isFavorite) => {
+  //   try {
+  //     if (isFavorite) {
+  //       dispatch(unfavoriteProduct(selectedProductId));
+  //       const updatedFavorites = favorites.filter(
+  //         (favorite) => favorite !== selectedProductId
+  //       );
+  //       await triggerFavorite({ favorites: updatedFavorites, localId });
+  //     } else {
+  //       dispatch(favoriteProduct(selectedProductId));
+  //       const updatedFavorites = [...favorites, selectedProductId];
+  //       await triggerFavorite({ favorites: updatedFavorites, localId });
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+  let debounceTimer;
+
   const handleFavorite = async (isFavorite) => {
+    clearTimeout(debounceTimer);
     try {
+      let updatedFavorites;
       if (isFavorite) {
-        const updatedFavorites = favorites.filter(
+        dispatch(unfavoriteProduct(selectedProductId));
+        updatedFavorites = favorites.filter(
           (favorite) => favorite !== selectedProductId
         );
-        await triggerFavorite({ favorites: updatedFavorites, localId });
-        dispatch(unfavoriteProduct(selectedProductId));
       } else {
-        const updatedFavorites = [...favorites, selectedProductId];
-        await triggerFavorite({ favorites: updatedFavorites, localId });
         dispatch(favoriteProduct(selectedProductId));
+        updatedFavorites = [...favorites, selectedProductId];
       }
+      debounceTimer = setTimeout(async () => {
+        await triggerFavorite({ favorites: updatedFavorites, localId });
+      }, 1000);
     } catch (err) {
       console.log(err);
     }
@@ -83,19 +99,28 @@ const ProductDetailScreen = ({ navigation, route }) => {
     navigation.setOptions({
       headerRight: () => {
         return (
+          // <>
+          //   {favoriteIsLoading && (
+          //     <ActivityIndicator size="small" color={Colors.text} />
+          //   )}
+          //   {!favoriteIsLoading && (
+          //     <Pressable onPress={() => handleFavorite(isFavorite)}>
+          //       <Ionicons
+          //         name={isFavorite ? 'heart' : 'heart-outline'}
+          //         size={24}
+          //         color={isFavorite ? Colors.primary : Colors.text}
+          //       />
+          //     </Pressable>
+          //   )}
+          // </>
           <>
-            {favoriteIsLoading && (
-              <ActivityIndicator size="small" color={Colors.text} />
-            )}
-            {!favoriteIsLoading && (
-              <Pressable onPress={() => handleFavorite(isFavorite)}>
-                <Ionicons
-                  name={isFavorite ? 'heart' : 'heart-outline'}
-                  size={24}
-                  color={isFavorite ? Colors.primary : Colors.text}
-                />
-              </Pressable>
-            )}
+            <Pressable onPress={() => handleFavorite(isFavorite)}>
+              <Ionicons
+                name={isFavorite ? 'heart' : 'heart-outline'}
+                size={24}
+                color={isFavorite ? Colors.primary : Colors.text}
+              />
+            </Pressable>
           </>
         );
       },
