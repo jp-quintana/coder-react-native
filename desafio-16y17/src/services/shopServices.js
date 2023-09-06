@@ -30,6 +30,7 @@ export const shopApi = createApi({
       query: (user) =>
         `orders.json?orderBy="user"&equalTo="${user}"&orderBy="createdAt"`,
       transformResponse: (response) => {
+        console.log('ESTO IS RUNNING BEBETO');
         const ordersTransformed = Object.entries(response).map(
           ([orderId, orderData]) => ({
             id: orderId,

@@ -24,6 +24,7 @@ const Navigator = () => {
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.shopReducer);
   const { localId } = useSelector((state) => state.userReducer);
+  const { orders } = useSelector((state) => state.orderReducer);
 
   const { data: fetchedProducts, isLoading: productsBeingFetched } =
     useGetProductsQuery();
@@ -31,6 +32,8 @@ const Navigator = () => {
   useEffect(() => {
     if (fetchedProducts?.length > 0) dispatch(setProducts(fetchedProducts));
   }, [productsBeingFetched]);
+
+  console.log(orders);
 
   return (
     <NavigationContainer>

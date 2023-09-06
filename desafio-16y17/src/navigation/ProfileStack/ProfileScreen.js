@@ -17,12 +17,14 @@ import {
   setUserLocation,
   logout,
 } from '../../features/user/userSlice';
+import { clearCart } from '../../features/cart/cartSlice';
+import { clearOrders } from '../../features/order/orderSlice';
 
 import { Ionicons } from '@expo/vector-icons';
 
 import { Colors } from '../../helpers/colors';
 
-const ProfileScreen = ({ navigation }) => {
+const ProfileScreen = ({ navigation, route }) => {
   const dispatch = useDispatch();
   const { profileImage, displayName, email, localId, location } = useSelector(
     (state) => state.userReducer
@@ -68,6 +70,11 @@ const ProfileScreen = ({ navigation }) => {
     navigation.navigate('ImageSelectScreen');
   };
 
+  useEffect(() => {
+    if (route?.params?.orderCompleted) navigation.navigate('OrdersScreen');
+  }, [route]);
+
+  console.log('acaaaaa', route?.params);
   return (
     <View style={styles.screen}>
       <Modal
@@ -229,7 +236,11 @@ const ProfileScreen = ({ navigation }) => {
 
             <View style={styles.option}>
               <Pressable
-                onPress={() => dispatch(logout())}
+                onPress={() => {
+                  dispatch(clearCart());
+                  dispatch(clearOrders());
+                  dispatch(logout());
+                }}
                 android_ripple={{ color: '#ccc' }}
                 style={({ pressed }) => [
                   styles.button,
@@ -332,6 +343,7 @@ const styles = StyleSheet.create({
   },
   user_item_text: {
     color: Colors.text,
+    flexShrink: 1,
   },
   option: {
     elevation: 4,

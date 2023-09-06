@@ -49,8 +49,11 @@ const CartScreen = ({ navigation }) => {
         createdAt: updatedAt,
       });
       dispatch(clearCart());
+      navigation.navigate('Profile', {
+        screen: 'ProfileScreen',
+        params: { orderCompleted: true },
+      });
       // navigation.navigate('Profile', { screen: 'OrdersScreen' });
-      navigation.navigate('Profile');
     } catch (error) {
       console.log(error);
     }
