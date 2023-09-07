@@ -9,9 +9,13 @@ import {
 } from 'react-native';
 import React, { useState, useLayoutEffect, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useGetProfileImageQuery } from '../../services/shopServices';
-import { useGetUserLocationQuery } from '../../services/shopServices';
-import { shopApi } from '../../services/shopServices';
+
+import {
+  useGetUserLocationQuery,
+  useGetProfileImageQuery,
+  shopApi,
+} from '../../services/shopServices';
+
 import {
   setProfileImage,
   setUserLocation,
@@ -238,7 +242,7 @@ const ProfileScreen = ({ navigation, route }) => {
                 onPress={() => {
                   dispatch(clearCart());
                   dispatch(clearOrders());
-                  dispatch(shopApi.util.invalidateTags(['getFavorites']));
+                  dispatch(shopApi.util.resetApiState());
                   dispatch(logout());
                 }}
                 android_ripple={{ color: '#ccc' }}

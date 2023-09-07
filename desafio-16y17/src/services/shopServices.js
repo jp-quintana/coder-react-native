@@ -30,7 +30,6 @@ export const shopApi = createApi({
       query: (user) =>
         `orders.json?orderBy="user"&equalTo="${user}"&orderBy="createdAt"`,
       transformResponse: (response) => {
-        console.log('ESTO IS RUNNING BEBETO');
         const ordersTransformed = Object.entries(response).map(
           ([orderId, orderData]) => ({
             id: orderId,
@@ -47,10 +46,10 @@ export const shopApi = createApi({
         body: order,
       }),
     }),
+    // update in future
     getFavorites: builder.query({
-      query: (localId) => `favorites/${localId}.json`,
+      query: (localId, date) => `favorites/${localId}.json`,
       transformResponse: (response) => {
-        console.log('IS RUNNING');
         return response?.favorites;
       },
     }),

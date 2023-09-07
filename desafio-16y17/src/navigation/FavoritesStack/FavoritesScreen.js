@@ -33,9 +33,6 @@ const FavoritesScreen = () => {
     }
   }, [userInput]);
 
-  console.log('ACAAAAAAAAAAAAAAAAAAAA', favorites);
-  console.log('ACAAAAAAAAAAAAAAAAAAAA', favoriteProducts);
-
   return (
     <View style={styles.container}>
       {!favoriteProducts && <Text style={styles.loading}>Loading...</Text>}
