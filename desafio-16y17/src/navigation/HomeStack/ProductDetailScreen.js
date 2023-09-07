@@ -5,9 +5,8 @@ import {
   Image,
   ScrollView,
   Pressable,
-  ActivityIndicator,
 } from 'react-native';
-import { useState, useLayoutEffect } from 'react';
+import { useState, useLayoutEffect, useEffect } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
@@ -20,7 +19,7 @@ import {
   unfavoriteProduct,
 } from '../../features/user/userSlice';
 
-import PrimaryButon from '../../components/PrimaryButton';
+import PrimaryButton from '../../components/PrimaryButton';
 
 import { Colors } from '../../helpers/colors';
 import { formatPrice } from '../../helpers/format';
@@ -34,7 +33,7 @@ const ProductDetailScreen = ({ navigation, route }) => {
 
   const [selectedProduct, setSelectedProduct] = useState(null);
 
-  [triggerFavorite, { isLoading: favoriteIsLoading }] =
+  const [triggerFavorite, { isLoading: favoriteIsLoading }] =
     usePostFavoritesMutation();
 
   const handleAddItem = () => {
@@ -42,47 +41,30 @@ const ProductDetailScreen = ({ navigation, route }) => {
     navigation.navigate('Cart');
   };
 
-  // const handleFavorite = async (isFavorite) => {
-  //   try {
-  //     if (isFavorite) {
-  //       dispatch(unfavoriteProduct(selectedProductId));
-  //       const updatedFavorites = favorites.filter(
-  //         (favorite) => favorite !== selectedProductId
-  //       );
-  //       await triggerFavorite({ favorites: updatedFavorites, localId });
-  //     } else {
-  //       dispatch(favoriteProduct(selectedProductId));
-  //       const updatedFavorites = [...favorites, selectedProductId];
-  //       await triggerFavorite({ favorites: updatedFavorites, localId });
-  //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-  let debounceTimer;
+  let timer;
 
-  const handleFavorite = async (isFavorite) => {
-    clearTimeout(debounceTimer);
+  const handleFavorite = (isFavorite) => {
+    clearTimeout(timer);
     try {
       let updatedFavorites;
       if (isFavorite) {
-        dispatch(unfavoriteProduct(selectedProductId));
         updatedFavorites = favorites.filter(
           (favorite) => favorite !== selectedProductId
         );
+        dispatch(unfavoriteProduct(selectedProductId));
       } else {
-        dispatch(favoriteProduct(selectedProductId));
         updatedFavorites = [...favorites, selectedProductId];
+        dispatch(favoriteProduct(selectedProductId));
       }
-      debounceTimer = setTimeout(async () => {
+      timer = setTimeout(async () => {
         await triggerFavorite({ favorites: updatedFavorites, localId });
-      }, 1000);
+      }, 100);
     } catch (err) {
       console.log(err);
     }
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const selected = products.find(
       (product) => product.id === selectedProductId
     );
@@ -92,40 +74,24 @@ const ProductDetailScreen = ({ navigation, route }) => {
       title: capitalizedTitle,
     });
     setSelectedProduct(selected);
-  }, []);
+  }, [selectedProductId]);
 
   useLayoutEffect(() => {
     const isFavorite = favorites.includes(selectedProductId);
     navigation.setOptions({
       headerRight: () => {
         return (
-          // <>
-          //   {favoriteIsLoading && (
-          //     <ActivityIndicator size="small" color={Colors.text} />
-          //   )}
-          //   {!favoriteIsLoading && (
-          //     <Pressable onPress={() => handleFavorite(isFavorite)}>
-          //       <Ionicons
-          //         name={isFavorite ? 'heart' : 'heart-outline'}
-          //         size={24}
-          //         color={isFavorite ? Colors.primary : Colors.text}
-          //       />
-          //     </Pressable>
-          //   )}
-          // </>
-          <>
-            <Pressable onPress={() => handleFavorite(isFavorite)}>
-              <Ionicons
-                name={isFavorite ? 'heart' : 'heart-outline'}
-                size={24}
-                color={isFavorite ? Colors.primary : Colors.text}
-              />
-            </Pressable>
-          </>
+          <Pressable onPress={() => handleFavorite(isFavorite)}>
+            <Ionicons
+              name={isFavorite ? 'heart' : 'heart-outline'}
+              size={24}
+              color={isFavorite ? Colors.primary : Colors.text}
+            />
+          </Pressable>
         );
       },
     });
-  }, [favorites, favoriteIsLoading]);
+  }, [favorites, favoriteIsLoading, selectedProductId]);
 
   return (
     <View style={styles.container}>
@@ -153,7 +119,7 @@ const ProductDetailScreen = ({ navigation, route }) => {
               <Text style={styles.description}>
                 {selectedProduct.description}
               </Text>
-              <PrimaryButon onPress={handleAddItem}>Add To Cart</PrimaryButon>
+              <PrimaryButton onPress={handleAddItem}>Add To Cart</PrimaryButton>
             </View>
           </ScrollView>
         </>

@@ -18,21 +18,22 @@ const ProductCard = ({ id, title, imageUrl, price, isLastElement }) => {
   const route = useRoute();
   const navigation = useNavigation();
 
-  const navArgs = [];
+  const handleNavigation = () => {
+    if (route.name === 'HomeScreen') {
+      navigation.navigate('ProductDetailScreen', { selectedProductId: id });
+    }
+    if (route.name === 'FavoritesScreen') {
+      navigation.navigate('Home', {
+        screen: 'ProductDetailScreen',
+        params: { selectedProductId: id },
+      });
+    }
+  };
 
-  if (route.name === 'HomeScreen') {
-    navArgs.push('ProductDetailScreen', { selectedProductId: id });
-  }
-  if (route.name === 'CartScreen') {
-    navArgs.push('Home', {
-      screen: 'ProductDetailScreen',
-      params: { selectedProductId: id },
-    });
-  }
   return (
     <View style={[styles.container, lastElementMargin]}>
       <Pressable
-        onPress={() => navigation.navigate(...navArgs)}
+        onPress={handleNavigation}
         android_ripple={{ color: '#ccc' }}
         style={({ pressed }) => [
           styles.button,

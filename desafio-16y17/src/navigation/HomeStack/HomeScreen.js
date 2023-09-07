@@ -57,7 +57,7 @@ const HomeScreen = () => {
           {filteredProducts.length === 0 && (
             <>
               <Text style={styles.no_product}>
-                No products match search criteria
+                No products match search criteria!
               </Text>
             </>
           )}

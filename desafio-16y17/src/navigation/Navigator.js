@@ -27,12 +27,12 @@ const Tab = createBottomTabNavigator();
 const Navigator = () => {
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.shopReducer);
-  const { localId, favorites } = useSelector((state) => state.userReducer);
+  const { localId } = useSelector((state) => state.userReducer);
 
   const { data: fetchedProducts, isLoading: productsBeingFetched } =
     useGetProductsQuery();
 
-  const { data: fetchedFavorites, isLoading: favoritedBeingFetched } =
+  const { data: fetchedFavorites, isLoading: favoritesBeingFetched } =
     useGetFavoritesQuery(localId);
 
   useEffect(() => {
@@ -40,10 +40,10 @@ const Navigator = () => {
   }, [productsBeingFetched]);
 
   useEffect(() => {
-    if (fetchedProducts) dispatch(setFavorites(fetchedFavorites));
-  }, [favoritedBeingFetched]);
-
-  console.log(favorites);
+    if (localId) {
+      if (fetchedFavorites) dispatch(setFavorites(fetchedFavorites));
+    }
+  }, [favoritesBeingFetched, localId]);
 
   return (
     <NavigationContainer>
