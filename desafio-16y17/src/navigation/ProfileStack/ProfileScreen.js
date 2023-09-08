@@ -23,6 +23,7 @@ import {
 } from '../../features/user/userSlice';
 import { clearCart } from '../../features/cart/cartSlice';
 import { clearOrders } from '../../features/order/orderSlice';
+import { clearNotifications } from '../../features/notification/notificationSlice';
 
 import { Ionicons } from '@expo/vector-icons';
 
@@ -142,6 +143,7 @@ const ProfileScreen = ({ navigation, route }) => {
                   setModalVisible(false);
                   navigation.navigate('AddressSelectScreen');
                 }}
+                style={{ marginLeft: 'auto' }}
               >
                 <Ionicons
                   name="md-pencil-sharp"
@@ -242,6 +244,7 @@ const ProfileScreen = ({ navigation, route }) => {
                 onPress={() => {
                   dispatch(clearCart());
                   dispatch(clearOrders());
+                  dispatch(clearNotifications());
                   dispatch(shopApi.util.resetApiState());
                   dispatch(logout());
                 }}

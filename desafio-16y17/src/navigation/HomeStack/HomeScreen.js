@@ -3,8 +3,6 @@ import { useState, useEffect } from 'react';
 
 import { useSelector } from 'react-redux';
 
-import { CATEGORIES } from '../../data/categories';
-
 import SearchInput from '../../components/SearchInput';
 import CategoryButton from '../../components/CategoryButton';
 import ProductCardList from '../../components/ProductCardList';
@@ -12,9 +10,9 @@ import ProductCardList from '../../components/ProductCardList';
 import { Colors } from '../../helpers/colors';
 
 const HomeScreen = () => {
-  const { products } = useSelector((state) => state.shopReducer);
+  const { categories, products } = useSelector((state) => state.shopReducer);
   const [userInput, setUserInput] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('pasta');
+  const [selectedCategory, setSelectedCategory] = useState(categories[0]);
 
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -72,17 +70,16 @@ const HomeScreen = () => {
         <>
           <View style={styles.categories_container}>
             <FlatList
-              data={CATEGORIES}
+              data={categories}
               renderItem={({ item, index }) => (
                 <CategoryButton
-                  title={item.title}
-                  imageUrl={item.imageUrl}
+                  title={item}
                   selectedCategory={selectedCategory}
-                  isLastElement={index === CATEGORIES.length - 1}
-                  onPress={() => setSelectedCategory(item.title)}
+                  isLastElement={index === categories.length - 1}
+                  onPress={() => setSelectedCategory(item)}
                 />
               )}
-              keyExtractor={(item) => item.title}
+              keyExtractor={(item) => item}
               horizontal={true}
               showsHorizontalScrollIndicator={false}
             />

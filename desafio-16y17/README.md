@@ -14,13 +14,13 @@ _Coming soon..._
 - Basic Inventory Management.
 - Auth (Firebase Email/Password).
 - User Orders.
+- Notifications.
 - Product Likes.
 - Firebase Realtime Database storage & manipulation.
 - Device Features: Camera & Location.
 
 ## Future additions
 
-- Notifications.
 - Device Features: Storage.
 
 ## Installation

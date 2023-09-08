@@ -5,7 +5,6 @@ import { Colors } from '../helpers/colors';
 
 const CategoryButton = ({
   title,
-  imageUrl,
   selectedCategory,
   isLastElement,
   onPress,
@@ -16,6 +15,20 @@ const CategoryButton = ({
       : undefined;
 
   const lastElementMargin = isLastElement ? { marginRight: 16 } : undefined;
+
+  let imageUrl;
+
+  if (title === 'pasta') {
+    imageUrl = require('../assets/images/pasta-icon.png');
+  }
+
+  if (title === 'pizza') {
+    imageUrl = require('../assets/images/pizza-icon.png');
+  }
+
+  if (title === 'dessert') {
+    imageUrl = require('../assets/images/dessert-icon.png');
+  }
 
   return (
     <Pressable

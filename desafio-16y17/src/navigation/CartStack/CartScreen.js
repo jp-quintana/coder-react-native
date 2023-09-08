@@ -10,6 +10,7 @@ import {
   removeItem,
   clearCart,
 } from '../../features/cart/cartSlice';
+import { addNotification } from '../../features/notification/notificationSlice';
 
 import CartItem from '../../components/CartItem';
 import PrimaryButton from '../../components/PrimaryButton';
@@ -49,6 +50,12 @@ const CartScreen = ({ navigation }) => {
         createdAt: updatedAt,
       });
       dispatch(clearCart());
+      dispatch(
+        addNotification({
+          title: 'Order Created!',
+          description: 'Your order was created successfully.',
+        })
+      );
       navigation.navigate('Profile', {
         screen: 'ProfileScreen',
         params: { orderCompleted: true },

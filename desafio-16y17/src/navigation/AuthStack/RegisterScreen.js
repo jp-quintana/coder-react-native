@@ -11,6 +11,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSignUpMutation } from '../../services/authServices';
 import { setUser } from '../../features/user/userSlice';
+import { addNotification } from '../../features/notification/notificationSlice';
 
 import AuthInput from '../../components/AuthInput';
 import PrimaryButton from '../../components/PrimaryButton';
@@ -32,6 +33,12 @@ const RegisterScreen = ({ navigation }) => {
 
   useEffect(() => {
     if (result.isSuccess) {
+      dispatch(
+        addNotification({
+          title: 'Welcome!',
+          description: 'Your account was setup correctly.',
+        })
+      );
       dispatch(
         setUser({
           email: result.data.email,
@@ -82,7 +89,6 @@ const RegisterScreen = ({ navigation }) => {
         returnSecureToken: true,
         displayName: userInput.displayName,
       };
-
       triggerSignUp(request);
     } catch (err) {
       setAuthError(err.message);

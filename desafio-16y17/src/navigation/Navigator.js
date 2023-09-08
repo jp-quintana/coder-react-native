@@ -6,11 +6,12 @@ import { Ionicons } from '@expo/vector-icons';
 
 import { useSelector, useDispatch } from 'react-redux';
 import {
+  useGetCategoriesQuery,
   useGetProductsQuery,
   useGetFavoritesQuery,
 } from '../services/shopServices';
 
-import { setProducts } from '../features/shop/shopSlice';
+import { setProducts, setCategories } from '../features/shop/shopSlice';
 import { setFavorites } from '../features/user/userSlice';
 
 import AuthStack from './AuthStack';
@@ -26,14 +27,22 @@ const Tab = createBottomTabNavigator();
 
 const Navigator = () => {
   const dispatch = useDispatch();
-  const { products } = useSelector((state) => state.shopReducer);
+  const { categories, products } = useSelector((state) => state.shopReducer);
   const { localId } = useSelector((state) => state.userReducer);
+
+  const { data: fetchedCategories, isLoading: categoriesBeingFetched } =
+    useGetCategoriesQuery();
 
   const { data: fetchedProducts, isLoading: productsBeingFetched } =
     useGetProductsQuery();
 
   const { data: fetchedFavorites, isLoading: favoritesBeingFetched } =
     useGetFavoritesQuery(localId);
+
+  useEffect(() => {
+    if (fetchedCategories?.length > 0)
+      dispatch(setCategories(fetchedCategories));
+  }, [categoriesBeingFetched]);
 
   useEffect(() => {
     if (fetchedProducts?.length > 0) dispatch(setProducts(fetchedProducts));
@@ -52,8 +61,10 @@ const Navigator = () => {
           <AuthStack />
         ) : (
           <>
-            {!products && <Text style={styles.loading}>Loading...</Text>}
-            {products && (
+            {(!products || !categories) && (
+              <Text style={styles.loading}>Loading...</Text>
+            )}
+            {products && categories && (
               <Tab.Navigator
                 screenOptions={{
                   headerShown: false,

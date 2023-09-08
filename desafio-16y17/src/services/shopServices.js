@@ -5,9 +5,9 @@ export const shopApi = createApi({
   reducerPath: 'shopApi',
   baseQuery: fetchBaseQuery({ baseUrl: realtime_database_url }),
   endpoints: (builder) => ({
-    // getCategories: builder.query({
-    //   query: () => `categories.json`,
-    // }),
+    getCategories: builder.query({
+      query: () => `categories.json`,
+    }),
     getProducts: builder.query({
       query: () => `products.json`,
     }),
@@ -92,7 +92,7 @@ export const shopApi = createApi({
 });
 
 export const {
-  // useGetCategoriesQuery,
+  useGetCategoriesQuery,
   useGetProductsQuery,
   // useGetProductsByCategoryQuery,
   // useGetProductByIdQuery,

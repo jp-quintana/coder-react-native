@@ -4,6 +4,7 @@ import shopReducer from '../features/shop/shopSlice';
 import cartReducer from '../features/cart/cartSlice';
 import orderReducer from '../features/order/orderSlice';
 import userReducer from '../features/user/userSlice';
+import notificationReducer from '../features/notification/notificationSlice';
 import { shopApi } from '../services/shopServices';
 import { authApi } from '../services/authServices';
 
@@ -13,6 +14,7 @@ const store = configureStore({
     cartReducer,
     orderReducer,
     userReducer,
+    notificationReducer,
     [shopApi.reducerPath]: shopApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
   },
