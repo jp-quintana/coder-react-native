@@ -14,12 +14,12 @@ _Coming soon..._
 - Basic Inventory Management.
 - Auth (Firebase Email/Password).
 - User Orders.
+- Product Likes.
 - Firebase Realtime Database storage & manipulation.
 - Device Features: Camera & Location.
 
 ## Future additions
 
-- Product Likes.
 - Notifications.
 - Device Features: Storage.
 
@@ -28,7 +28,11 @@ _Coming soon..._
 - Step 1: Clone Repository and Install Packages.
 
 ```
-git clone https://github.com/jp-quintana/coder-react-native-entrega-final.git && npm install
+git clone https://github.com/jp-quintana/coder-react-native-entrega-final.git
+
+cd coder-react-native-entrega-final
+
+npm install
 ```
 
 - Step 2: Setup config.js file inside src/db directory.
